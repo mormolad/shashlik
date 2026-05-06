@@ -15,11 +15,11 @@ const defaultSelections: MarinadeInput = {
   style: 'classic',
   intensity: 'medium',
   fat: 'normal',
-  marinadeTime: 'standard',
+  spiceLevel: 5,
   cutType: 'cube',
   alcoholPairing: 'none',
-  nationalStyle: 'none',
-  spiceLevel: 5,
+  marinadeTime: 'standard',
+  nationalStyle: 'turkish'
 }
 
 function App() {

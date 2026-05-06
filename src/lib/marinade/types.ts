@@ -1,5 +1,5 @@
 export type MeatType = 'chicken' | 'pork' | 'beef' | 'lamb' | 'turkey'
-export type StyleType = 'classic' | 'caucasus' | 'turkish' | 'eastern' | 'spicy' | 'premium' | 'herbal' | 'smoky'
+export type StyleType = 'classic' | 'caucasus' | 'turkish' | 'eastern' | 'spicy' | 'premium' | 'herbal'
 export type IntensityType = 'light' | 'medium' | 'strong'
 export type FatType = 'lean' | 'normal' | 'fatty'
 

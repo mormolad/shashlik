@@ -8,7 +8,8 @@ import {
   INTENSITY_COEFFICIENT,
   MARINADE_TIME_LABELS,
   MEAT_COEFFICIENT,
-  NATIONAL_STYLE_BOOST,
+  MEAT_RULES,
+  PEPPER_BASE_PER_KG,
   REQUIRED_SPICES_BY_MEAT,
   STYLE_LABELS,
 } from './rules'
@@ -18,7 +19,7 @@ import type { MarinadeIngredient, MarinadeInput, MarinadeRecipe, SpiceDefinition
 const HIGH_DOSE_THRESHOLD = 4
 
 function formatAmount(amountGrams: number): string {
-  return `${amountGrams} g`
+  return `${amountGrams} г`
 }
 
 function getSpice(name: string): SpiceDefinition | undefined {
@@ -68,8 +69,20 @@ function makeIngredient(name: string, amountGrams: number): MarinadeIngredient {
   }
 }
 
-function applyHighDoseConflicts(input: MarinadeInput, selected: string[], amounts: Map<string, number>): string[] {
-  const result = [...selected]
+function filterConflicts(input: MarinadeInput, selected: string[], amounts: Map<string, number>): string[] {
+  let result = [...selected]
+
+  // 1. Обработка HARD_CONFLICTS
+  for (const [a, b] of HARD_CONFLICTS) {
+    if (result.includes(a) && result.includes(b)) {
+      const aPriority = getSpice(a)?.priority ?? 0
+      const bPriority = getSpice(b)?.priority ?? 0
+      const drop = aPriority >= bPriority ? b : a
+      result = result.filter(name => name !== drop)
+    }
+  }
+
+  // 2. Обработка HIGH_DOSE_CONFLICTS
   for (const [a, b] of HIGH_DOSE_CONFLICTS) {
     if (!result.includes(a) || !result.includes(b)) continue
     const aAmount = amounts.get(a) ?? 0
@@ -78,8 +91,7 @@ function applyHighDoseConflicts(input: MarinadeInput, selected: string[], amount
     const aPriority = getSpice(a)?.priority ?? 0
     const bPriority = getSpice(b)?.priority ?? 0
     const drop = aPriority >= bPriority ? b : a
-    const idx = result.indexOf(drop)
-    if (idx >= 0) result.splice(idx, 1)
+    result = result.filter(name => name !== drop)
   }
 
   if (input.meat === 'lamb') {
@@ -102,7 +114,6 @@ function getAlcoholNote(pairing: MarinadeInput['alcoholPairing']): string {
 }
 
 function selectStyleSpices(input: MarinadeInput, selected: Set<string>, rng: RandomGenerator): string[] {
-  const styleBoost = NATIONAL_STYLE_BOOST[input.nationalStyle]?.[input.style] ?? 1
   const candidates = SPICE_DB.filter(spice => {
     if (!spice.styles.includes(input.style)) return false
     if (!spice.compatibleWith.includes(input.meat)) return false
@@ -118,7 +129,7 @@ function selectStyleSpices(input: MarinadeInput, selected: Set<string>, rng: Ran
   while (result.length < targetCount && pool.length > 0) {
     const picked = weightedPick(
       pool,
-      spice => (COMPATIBILITY_TABLE[spice.name]?.[input.meat] ?? 0) * spice.priority * styleBoost,
+      spice => (COMPATIBILITY_TABLE[spice.name]?.[input.meat] ?? 0) * spice.priority,
       rng,
     )
     if (!picked) break
@@ -130,7 +141,6 @@ function selectStyleSpices(input: MarinadeInput, selected: Set<string>, rng: Ran
 
   return result
 }
-
 export function generateMarinadeRecipe(input: MarinadeInput, seed?: number): MarinadeRecipe {
   const rng = createSeededRandom(seed)
   const selected = new Set<string>()
@@ -141,11 +151,29 @@ export function generateMarinadeRecipe(input: MarinadeInput, seed?: number): Mar
 
   const amountMap = new Map<string, number>()
   for (const name of selected) {
-    const baseItem = BASE_INGREDIENTS.find(item => item.name === name)
-    if (baseItem) {
-      amountMap.set(name, roundToHalf(baseItem.amount))
+    // Специальная логика для базовых ингредиентов
+    if (name === 'salt') {
+      const saltPerKg = MEAT_RULES[input.meat].saltPerKg
+      amountMap.set(name, roundToHalf(saltPerKg))
       continue
     }
+    if (name === 'black_pepper') {
+      if (input.spiceLevel === 0) {
+        selected.delete(name)
+        continue
+      }
+      // Линейная шкала: 5 = база, 10 = 2x база
+      const pepperAmount = PEPPER_BASE_PER_KG * (input.spiceLevel / 5)
+      amountMap.set(name, roundToHalf(pepperAmount))
+      continue
+    }
+    if (name === 'onion') {
+      const baseItem = BASE_INGREDIENTS.find(item => item.name === 'onion')
+      const onionAmount = baseItem?.amount ?? 300
+      amountMap.set(name, roundToHalf(onionAmount))
+      continue
+    }
+
     const spice = getSpice(name)
     if (!spice) continue
     amountMap.set(name, calcAmount(spice.baseAmount, spice.type, input, rng))
@@ -156,11 +184,10 @@ export function generateMarinadeRecipe(input: MarinadeInput, seed?: number): Mar
   }
 
   const styleSpicesAndRequired = [...selected].filter(name => !BASE_INGREDIENTS.find(item => item.name === name))
-  const filteredSpices = applyHighDoseConflicts(input, styleSpicesAndRequired, amountMap)
-  const ingredientNames = [
-    ...BASE_INGREDIENTS.map(item => item.name),
-    ...filteredSpices,
-    ...(input.fat === 'fatty' ? ['lemon_juice'] : []),
+  const filteredSpices = filterConflicts(input, styleSpicesAndRequired, amountMap)
+  const ingredientNames = [...BASE_INGREDIENTS.map(item => item.name),
+  ...filteredSpices,
+  ...(input.fat === 'fatty' ? ['lemon_juice'] : []),
   ]
 
   const ingredients = ingredientNames
@@ -168,10 +195,11 @@ export function generateMarinadeRecipe(input: MarinadeInput, seed?: number): Mar
     .map(name => makeIngredient(name, amountMap.get(name) ?? 1))
 
   const marinadeTimeText = MARINADE_TIME_LABELS[input.marinadeTime]
+  const recommendedTime = MEAT_RULES[input.meat].marinationTime
   const steps = [
     'Смешайте сухие специи в отдельной миске.',
     'Добавьте лук, соль и перец, затем вмешайте остальные ингредиенты.',
-    `Маринуйте мясо ${marinadeTimeText} в холодильнике.`,
+    `Маринуйте мясо ${marinadeTimeText} в холодильнике (рекомендуемое время для этого мяса: ${recommendedTime}).`,
     'Перед жаркой уберите излишки маринада и обсушите мясо.',
   ]
 

@@ -1,5 +1,6 @@
 import { memo } from 'react'
 import { motion } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import type { MarinadeRecipe } from '../lib/marinade/types'
 
 interface RecipeResultProps {
@@ -10,6 +11,7 @@ interface RecipeResultProps {
 }
 
 const RecipeResult = memo(function RecipeResult({ recipe, onReset, onRandomize, isGenerating }: RecipeResultProps) {
+  const { t } = useTranslation()
   if (!recipe) {
     return null
   }
@@ -43,7 +45,7 @@ const RecipeResult = memo(function RecipeResult({ recipe, onReset, onRandomize, 
         <div className="recipe-header">
           <h2 className="recipe-title">{recipe.meta.styleLabel} маринад</h2>
           <p className="recipe-subtitle">
-            {recipe.meat} • {recipe.intensity} • {recipe.fat} • {recipe.meta.marinadeTimeText}
+            {t(`recipe.form.options.meat.${recipe.meat}`, { defaultValue: recipe.meat })} • {t(`recipe.form.options.intensity.${recipe.intensity}`, { defaultValue: recipe.intensity })} • {t(`recipe.form.options.fat.${recipe.fat}`, { defaultValue: recipe.fat })} • {recipe.meta.marinadeTimeText}
           </p>
         </div>
 
@@ -74,17 +76,17 @@ const RecipeResult = memo(function RecipeResult({ recipe, onReset, onRandomize, 
         </div>
 
         <div className="recipe-section">
-          <div className="recipe-section-label">V4 МЕТАДАННЫЕ</div>
+          <div className="recipe-section-label">{t('recipe.form.sections.v4_params')}</div>
           <ul className="recipe-ingredients">
             <li className="recipe-ingredient">
               <span className="recipe-bullet">&bull;</span>
-              <span className="recipe-ingredient-name">Рекомендация по нарезке</span>
+              <span className="recipe-ingredient-name">{t('recipe.form.options.cutType.label')}</span>
               <span className="recipe-dash">&mdash;</span>
               <span className="recipe-ingredient-amount">{recipe.meta.cutNote}</span>
             </li>
             <li className="recipe-ingredient">
               <span className="recipe-bullet">&bull;</span>
-              <span className="recipe-ingredient-name">Алкогольный акцент</span>
+              <span className="recipe-ingredient-name">{t('recipe.form.options.alcohol.label')}</span>
               <span className="recipe-dash">&mdash;</span>
               <span className="recipe-ingredient-amount">{recipe.meta.alcoholNote}</span>
             </li>
@@ -99,10 +101,10 @@ const RecipeResult = memo(function RecipeResult({ recipe, onReset, onRandomize, 
 
         <div className="recipe-actions">
           <button className="recipe-btn-outline" onClick={onRandomize} type="button">
-            Сгенерировать другой
+            {t('recipe.result.randomize')}
           </button>
           <button className="recipe-btn-outline" onClick={onReset} type="button">
-            Начать заново
+            {t('recipe.result.reset')}
           </button>
         </div>
       </div>

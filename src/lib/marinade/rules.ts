@@ -3,14 +3,24 @@ import type {
   IntensityType,
   MarinadeTimePreference,
   MeatType,
-  NationalStyle,
+
   SpiceType,
   StyleType,
 } from './types'
 
+export const MEAT_RULES: Record<MeatType, { saltPerKg: number; marinationTime: string }> = {
+  pork: { saltPerKg: 10, marinationTime: '6-8 часов' },
+  lamb: { saltPerKg: 14, marinationTime: '8-10 часов' },
+  chicken: { saltPerKg: 9, marinationTime: '2-4 часа' },
+  beef: { saltPerKg: 12, marinationTime: '10-12 часов' },
+  turkey: { saltPerKg: 10, marinationTime: '4-6 часов' },
+}
+
+export const PEPPER_BASE_PER_KG = 2
+
 export const BASE_INGREDIENTS = [
-  { name: 'salt', amount: 20, type: 'base' as SpiceType },
-  { name: 'black_pepper', amount: 5, type: 'base' as SpiceType },
+  { name: 'salt', amount: 10, type: 'base' as SpiceType },
+  { name: 'black_pepper', amount: 2, type: 'base' as SpiceType },
   { name: 'onion', amount: 300, type: 'base' as SpiceType },
 ]
 
@@ -58,19 +68,10 @@ export const STYLE_LABELS: Record<StyleType, string> = {
   spicy: 'Острый',
   premium: 'Премиальный',
   herbal: 'Травяной',
-  smoky: 'Копченый',
 }
 
 export const MARINADE_TIME_LABELS: Record<MarinadeTimePreference, string> = {
   quick: '2-4 часа',
   standard: '6-8 часов',
   long: '10-12 часов',
-}
-
-export const NATIONAL_STYLE_BOOST: Record<NationalStyle, Partial<Record<StyleType, number>>> = {
-  none: {},
-  georgian: { caucasus: 1.25, herbal: 1.1 },
-  armenian: { caucasus: 1.2, smoky: 1.1 },
-  turkish: { turkish: 1.25, eastern: 1.1 },
-  uzbek: { eastern: 1.25, classic: 1.05 },
 }

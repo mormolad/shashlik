@@ -1,0 +1,21 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error"
+  },
+  "recipe": {
+    "form": {
+      "title": "Marinade Generator",
+      "description": "Select ingredients and parameters to create the perfect marinade.",
+      "ingredients": "Ingredients",
+      "meatType": "Meat Type",
+      "spiciness": "Spiciness",
+      "generate": "Generate Recipe"
+    },
+    "result": {
+      "title": "Your Recipe",
+      "copy": "Copy",
+      "share": "Share"
+    }
+  }
+}

@@ -1,14 +1,11 @@
 import { memo } from 'react'
 import { motion } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import type {
-  AlcoholPairing,
-  CutType,
   FatType,
   IntensityType,
   MarinadeInput,
-  MarinadeTimePreference,
   MeatType,
-  NationalStyle,
   StyleType,
 } from '../lib/marinade/types'
 
@@ -73,38 +70,35 @@ const TurkeyIcon = memo(function TurkeyIcon() {
 
 // --- Card Option Data ---
 
-const meatOptions: { value: MeatType; label: string; hint: string; Icon: React.FC }[] = [
-  { value: 'pork', label: 'Свинина', hint: 'Шейка или корейка', Icon: MeatIcon },
-  { value: 'chicken', label: 'Курица', hint: 'Бедра или грудка', Icon: ChickenIcon },
-  { value: 'beef', label: 'Говядина', hint: 'Вырезка или антрекот', Icon: BeefIcon },
-  { value: 'lamb', label: 'Баранина', hint: 'Корейка или лопатка', Icon: LambIcon },
-  { value: 'turkey', label: 'Индейка', hint: 'Филе или бедро', Icon: TurkeyIcon },
+const meatOptions: { value: MeatType; Icon: React.FC }[] = [
+  { value: 'pork', Icon: MeatIcon },
+  { value: 'chicken', Icon: ChickenIcon },
+  { value: 'beef', Icon: BeefIcon },
+  { value: 'lamb', Icon: LambIcon },
+  { value: 'turkey', Icon: TurkeyIcon },
 ]
 
-const styleOptions: { value: StyleType; label: string; hint: string }[] = [
-  { value: 'classic', label: 'Classic', hint: 'База и универсальность' },
-  { value: 'caucasus', label: 'Caucasus', hint: 'Зира, кориандр, сумах' },
-  { value: 'turkish', label: 'Turkish', hint: 'Мята и пряные ноты' },
-  { value: 'eastern', label: 'Eastern', hint: 'Теплые специи' },
-  { value: 'spicy', label: 'Spicy', hint: 'Острый профиль' },
-  { value: 'premium', label: 'Premium', hint: 'Более сложный вкус' },
-  { value: 'herbal', label: 'Herbal', hint: 'Травяной акцент' },
-  { value: 'smoky', label: 'Smoky', hint: 'Копченые ноты' },
+const styleOptions: { value: StyleType }[] = [
+  { value: 'classic' },
+  { value: 'caucasus' },
+  { value: 'turkish' },
+  { value: 'eastern' },
+  { value: 'spicy' },
+  { value: 'premium' },
+  { value: 'herbal' },
 ]
 
-const intensityOptions: { value: IntensityType; label: string; hint: string }[] = [
-  { value: 'light', label: 'Light', hint: 'Легкий вкус' },
-  { value: 'medium', label: 'Medium', hint: 'Сбалансированный' },
-  { value: 'strong', label: 'Strong', hint: 'Насыщенный вкус' },
+const intensityOptions: { value: IntensityType }[] = [
+  { value: 'light' },
+  { value: 'medium' },
+  { value: 'strong' },
 ]
 
-const fatOptions: { value: FatType; label: string; hint: string }[] = [
-  { value: 'lean', label: 'Lean', hint: 'Постное мясо' },
-  { value: 'normal', label: 'Normal', hint: 'Средняя жирность' },
-  { value: 'fatty', label: 'Fatty', hint: 'Жирные куски' },
-]
-
-// --- SelectCard Component ---
+const fatOptions: { value: FatType }[] = [
+  { value: 'lean' },
+  { value: 'normal' },
+  { value: 'fatty' },
+]// --- SelectCard Component ---
 
 interface SelectCardProps {
   selected: boolean
@@ -146,24 +140,23 @@ interface RecipeFormProps {
 }
 
 const RecipeForm = memo(function RecipeForm({ selections, onSelect, onGenerate }: RecipeFormProps) {
-  const canGenerate = Boolean(selections.meat && selections.style && selections.intensity && selections.fat)
+  const { t } = useTranslation()
 
   return (
     <div className="recipe-form">
-      <h1 className="form-title">Конструктор маринада V3</h1>
-      <p className="form-subtitle">Выберите параметры и получите реалистичный рецепт на 1 кг мяса</p>
+      <h1 className="form-title">{t('recipe.form.title')}</h1>
+      <p className="form-subtitle">{t('recipe.form.subtitle')}</p>
 
-      {/* Meat Row */}
-      <div className="form-section">
-        <div className="section-label">МЯСО</div>
+      <div className="recipe-section">
+        <div className="recipe-section-label">{t('recipe.form.sections.meat')}</div>
         <div className="card-grid card-grid-4">
           {meatOptions.map((opt, i) => (
             <SelectCard
               key={opt.value}
               selected={selections.meat === opt.value}
               onClick={() => onSelect('meat', opt.value)}
-              label={opt.label}
-              hint={opt.hint}
+              label={t(`recipe.form.options.meat.${opt.value}`)}
+              hint={t(`recipe.form.options.meat.${opt.value}_hint`)}
               Icon={opt.Icon}
               index={i}
             />
@@ -173,32 +166,53 @@ const RecipeForm = memo(function RecipeForm({ selections, onSelect, onGenerate }
 
       {/* Style Row */}
       <div className="form-section">
-        <div className="section-label">СТИЛЬ</div>
+        <div className="section-label">{t('recipe.form.sections.style')}</div>
         <div className="card-grid card-grid-4">
           {styleOptions.map((opt, i) => (
             <SelectCard
               key={opt.value}
               selected={selections.style === opt.value}
               onClick={() => onSelect('style', opt.value)}
-              label={opt.label}
-              hint={opt.hint}
+              label={t(`recipe.form.options.style.${opt.value}`)}
+              hint={t(`recipe.form.options.style.${opt.value}_hint`)}
               index={i}
             />
           ))}
         </div>
       </div>
 
+      {/* Spice Level (Острота) */}
+      <div className="form-section">
+        <div className="section-label">{t('recipe.form.sections.spiceLevel')}</div>
+        <div className="spice-slider-container">
+          <input
+            type="range"
+            min="0"
+            max="10"
+            step="1"
+            value={selections.spiceLevel}
+            onChange={(e) => onSelect('spiceLevel', parseInt(e.target.value, 10))}
+            className="spice-slider"
+          />
+          <div className="spice-labels">
+            <span>{t('recipe.form.spice.mild')}</span>
+            <span className="spice-value">{selections.spiceLevel}</span>
+            <span>{t('recipe.form.spice.hot')}</span>
+          </div>
+        </div>
+      </div>
+
       {/* Intensity Row */}
       <div className="form-section">
-        <div className="section-label">ИНТЕНСИВНОСТЬ</div>
+        <div className="section-label">{t('recipe.form.sections.intensity')}</div>
         <div className="card-grid card-grid-3">
           {intensityOptions.map((opt, i) => (
             <SelectCard
               key={opt.value}
               selected={selections.intensity === opt.value}
               onClick={() => onSelect('intensity', opt.value)}
-              label={opt.label}
-              hint={opt.hint}
+              label={t(`recipe.form.options.intensity.${opt.value}`)}
+              hint={t(`recipe.form.options.intensity.${opt.value}_hint`)}
               index={i}
             />
           ))}
@@ -207,84 +221,32 @@ const RecipeForm = memo(function RecipeForm({ selections, onSelect, onGenerate }
 
       {/* Fat Row */}
       <div className="form-section">
-        <div className="section-label">ЖИРНОСТЬ</div>
+        <div className="section-label">{t('recipe.form.sections.fat')}</div>
         <div className="card-grid card-grid-3">
           {fatOptions.map((opt, i) => (
             <SelectCard
               key={opt.value}
               selected={selections.fat === opt.value}
               onClick={() => onSelect('fat', opt.value)}
-              label={opt.label}
-              hint={opt.hint}
+              label={t(`recipe.form.options.fat.${opt.value}`)}
+              hint={t(`recipe.form.options.fat.${opt.value}_hint`)}
               index={i}
             />
           ))}
         </div>
       </div>
 
-      {/* V4 Inputs */}
-      <div className="form-section">
-        <div className="section-label">V4 ПАРАМЕТРЫ</div>
-        <div className="recipe-actions">
-          <label className="select-card">
-            <span className="select-card-label">Время маринада</span>
-            <select value={selections.marinadeTime} onChange={e => onSelect('marinadeTime', e.target.value as MarinadeTimePreference)}>
-              <option value="quick">Quick</option>
-              <option value="standard">Standard</option>
-              <option value="long">Long</option>
-            </select>
-          </label>
-          <label className="select-card">
-            <span className="select-card-label">Часть/тип нарезки</span>
-            <select value={selections.cutType} onChange={e => onSelect('cutType', e.target.value as CutType)}>
-              <option value="cube">Кубики</option>
-              <option value="steak">Стейк</option>
-              <option value="ribs">Ребра</option>
-            </select>
-          </label>
-          <label className="select-card">
-            <span className="select-card-label">Под алкоголь</span>
-            <select value={selections.alcoholPairing} onChange={e => onSelect('alcoholPairing', e.target.value as AlcoholPairing)}>
-              <option value="none">Без акцента</option>
-              <option value="wine">Вино</option>
-              <option value="beer">Пиво</option>
-              <option value="vodka">Крепкий</option>
-            </select>
-          </label>
-          <label className="select-card">
-            <span className="select-card-label">Национальный стиль</span>
-            <select value={selections.nationalStyle} onChange={e => onSelect('nationalStyle', e.target.value as NationalStyle)}>
-              <option value="none">Без приоритета</option>
-              <option value="georgian">Грузинский</option>
-              <option value="armenian">Армянский</option>
-              <option value="turkish">Турецкий</option>
-              <option value="uzbek">Узбекский</option>
-            </select>
-          </label>
-          <label className="select-card">
-            <span className="select-card-label">Острота: {selections.spiceLevel}/10</span>
-            <input
-              type="range"
-              min={1}
-              max={10}
-              value={selections.spiceLevel}
-              onChange={e => onSelect('spiceLevel', Number(e.target.value))}
-            />
-          </label>
-        </div>
+      {/* Generate Button */}
+      <div className="form-actions">
+        <motion.button
+          className="generate-button"
+          onClick={onGenerate}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          {t('recipe.form.generate')}
+        </motion.button>
       </div>
-
-      {/* CTA Button */}
-      <motion.button
-        className="cta-button"
-        onClick={onGenerate}
-        disabled={!canGenerate}
-        whileHover={canGenerate ? { y: -2 } : {}}
-        whileTap={canGenerate ? { scale: 0.98, y: 0 } : {}}
-        type="button"
-      >
-        СОЗДАТЬ МАРИНАД
-      </motion.button>
     </div>
   )
 })

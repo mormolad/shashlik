@@ -1,14 +1,14 @@
-import { useState, useCallback } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import BackgroundVideo from './sections/BackgroundVideo'
-import RecipeForm from './sections/RecipeForm'
-import RecipeResult from './sections/RecipeResult'
-import FireOverlay from './sections/FireOverlay'
-import './App.css'
-import { generateMarinadeRecipe } from './lib/marinade/generator'
-import type { MarinadeInput, MarinadeRecipe } from './lib/marinade/types'
+import { useState, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import BackgroundVideo from './sections/BackgroundVideo';
+import RecipeForm from './sections/RecipeForm';
+import RecipeResult from './sections/RecipeResult';
+import FireOverlay from './sections/FireOverlay';
+import './App.css';
+import { generateMarinadeRecipe } from './lib/marinade/generator';
+import type { MarinadeInput, MarinadeRecipe } from './lib/marinade/types';
 
-export type AppState = 'form' | 'generating' | 'result'
+export type AppState = 'form' | 'generating' | 'result';
 
 const defaultSelections: MarinadeInput = {
   meat: 'pork',
@@ -19,37 +19,41 @@ const defaultSelections: MarinadeInput = {
   cutType: 'cube',
   alcoholPairing: 'none',
   marinadeTime: 'standard',
-  nationalStyle: 'turkish'
-}
+  nationalStyle: 'turkish',
+};
 
 function App() {
-  const [selections, setSelections] = useState<MarinadeInput>(defaultSelections)
-  const [appState, setAppState] = useState<AppState>('form')
-  const [recipe, setRecipe] = useState<MarinadeRecipe | null>(null)
+  const [selections, setSelections] =
+    useState<MarinadeInput>(defaultSelections);
+  const [appState, setAppState] = useState<AppState>('form');
+  const [recipe, setRecipe] = useState<MarinadeRecipe | null>(null);
 
-  const handleSelect = useCallback(<K extends keyof MarinadeInput>(category: K, value: MarinadeInput[K]) => {
-    setSelections(prev => ({ ...prev, [category]: value }))
-  }, [])
+  const handleSelect = useCallback(
+    <K extends keyof MarinadeInput>(category: K, value: MarinadeInput[K]) => {
+      setSelections((prev) => ({ ...prev, [category]: value }));
+    },
+    [],
+  );
 
   const handleGenerate = useCallback(() => {
-    const nextRecipe = generateMarinadeRecipe(selections)
-    setRecipe(nextRecipe)
-    setAppState('generating')
+    const nextRecipe = generateMarinadeRecipe(selections);
+    setRecipe(nextRecipe);
+    setAppState('generating');
     setTimeout(() => {
-      setAppState('result')
-    }, 1500)
-  }, [selections])
+      setAppState('result');
+    }, 1500);
+  }, [selections]);
 
   const handleReset = useCallback(() => {
-    setSelections(defaultSelections)
-    setRecipe(null)
-    setAppState('form')
-  }, [])
+    setSelections(defaultSelections);
+    setRecipe(null);
+    setAppState('form');
+  }, []);
 
   const handleRandomize = useCallback(() => {
-    const nextRecipe = generateMarinadeRecipe(selections)
-    setRecipe(nextRecipe)
-  }, [selections])
+    const nextRecipe = generateMarinadeRecipe(selections);
+    setRecipe(nextRecipe);
+  }, [selections]);
 
   return (
     <div className="app-wrapper">
@@ -91,13 +95,22 @@ function App() {
         </AnimatePresence>
 
         <footer className="site-footer">
-          Шашлычник.Мастер — для настоящих мангальщиков
+          <div className="footer-signature">
+            Разработано с любовью к шашлыкам и под патронажем
+          </div>
+          <div className="footer-logo-centered">
+            <img
+              src="/PointPuls.svg"
+              alt="PointPuls"
+              className="footer-logo-img"
+            />
+          </div>
         </footer>
       </main>
 
       <FireOverlay visible={appState === 'generating'} />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

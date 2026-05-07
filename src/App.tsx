@@ -7,8 +7,7 @@ import FireOverlay from './sections/FireOverlay';
 import './App.css';
 import { generateMarinadeRecipe } from './lib/marinade/generator';
 import type { MarinadeInput, MarinadeRecipe } from './lib/marinade/types';
-
-export type AppState = 'form' | 'generating' | 'result';
+import type { AppState } from './types/app';
 
 const defaultSelections: MarinadeInput = {
   meat: 'pork',

@@ -1,14 +1,7 @@
 import { memo } from 'react'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
-import type { MarinadeRecipe } from '../lib/marinade/types'
-
-interface RecipeResultProps {
-  recipe: MarinadeRecipe | null
-  onReset: () => void
-  onRandomize: () => void
-  isGenerating: boolean
-}
+import type { RecipeResultProps } from '../types/results'
 
 const RecipeResult = memo(function RecipeResult({ recipe, onReset, onRandomize, isGenerating }: RecipeResultProps) {
   const { t } = useTranslation()

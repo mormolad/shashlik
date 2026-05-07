@@ -3,10 +3,9 @@ import type { MeatType, SpiceDefinition } from './types'
 export const SPICE_DB: SpiceDefinition[] = [
   { name: 'cumin', baseAmount: 3, type: 'warm', styles: ['caucasus', 'turkish', 'eastern'], compatibleWith: ['lamb', 'beef', 'pork'], priority: 5 },
   { name: 'coriander', baseAmount: 3, type: 'warm', styles: ['classic', 'caucasus', 'eastern', 'premium'], compatibleWith: ['chicken', 'pork', 'beef', 'lamb', 'turkey'], priority: 5 },
-  { name: 'paprika', baseAmount: 4, type: 'smoky', styles: ['classic', 'spicy'], compatibleWith: ['chicken', 'pork', 'beef', 'turkey'], priority: 4 },
-  { name: 'smoked_paprika', baseAmount: 3, type: 'smoky', styles: [ 'spicy', 'premium'], compatibleWith: ['chicken', 'pork', 'beef', 'lamb'], priority: 4 },
-  { name: 'garlic', baseAmount: 5, type: 'fresh', styles: ['classic', 'caucasus', 'turkish', 'spicy', 'herbal'], compatibleWith: ['chicken', 'pork', 'beef', 'lamb', 'turkey'], priority: 5 },
-  { name: 'basil', baseAmount: 2.5, type: 'herb', styles: ['herbal', 'premium', 'turkish'], compatibleWith: ['chicken', 'pork', 'turkey'], priority: 3 },
+  { name: 'paprika', baseAmount: 4, type: 'smoky', styles: ['classic', 'spicy', 'quick'], compatibleWith: ['chicken', 'pork', 'beef', 'turkey'], priority: 4 },
+  { name: 'smoked_paprika', baseAmount: 3, type: 'smoky', styles: [ 'spicy', 'premium', 'quick'], compatibleWith: ['chicken', 'pork', 'beef', 'lamb'], priority: 4 },
+  { name: 'garlic', baseAmount: 5, type: 'fresh', styles: ['classic', 'caucasus', 'turkish', 'spicy', 'herbal', 'quick'], compatibleWith: ['chicken', 'pork', 'beef', 'lamb', 'turkey'], priority: 5 },  { name: 'basil', baseAmount: 2.5, type: 'herb', styles: ['herbal', 'premium', 'turkish'], compatibleWith: ['chicken', 'pork', 'turkey'], priority: 3 },
   { name: 'mint', baseAmount: 2, type: 'fresh', styles: ['eastern', 'turkish', 'herbal'], compatibleWith: ['lamb', 'chicken'], priority: 3 },
   { name: 'rosemary', baseAmount: 2, type: 'herb', styles: ['premium', 'classic', ], compatibleWith: ['pork', 'beef', 'lamb', 'turkey'], priority: 3 },
   { name: 'dill', baseAmount: 2.5, type: 'herb', styles: ['classic', 'herbal'], compatibleWith: ['chicken', 'pork', 'turkey'], priority: 2 },

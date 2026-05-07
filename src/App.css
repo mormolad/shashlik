@@ -106,7 +106,7 @@
 }
 
 .section-label {
-  font-size: 11px;
+  font-size: 25px;
   font-weight: 600;
   color: var(--ember);
   text-transform: uppercase;

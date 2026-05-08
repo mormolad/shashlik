@@ -119,6 +119,10 @@ function App() {
               src="/PointPuls.svg"
               alt="PointPuls"
               className="footer-logo-img"
+              width={140}
+              height={34}
+              loading="lazy"
+              decoding="async"
             />
           </div>
         </footer>

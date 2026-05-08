@@ -11,6 +11,8 @@ const BackgroundVideo = memo(function BackgroundVideo() {
         loop
         playsInline
         preload="metadata"
+        aria-hidden="true"
+        tabIndex={-1}
       >
         <source src="/videos/bg-coals.mp4" type="video/mp4" />
       </video>

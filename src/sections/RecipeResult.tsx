@@ -32,7 +32,7 @@ const RecipeResult = memo(function RecipeResult({
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div className="recipe-fire-header">
+      <div className="recipe-fire-header" aria-hidden="true">
         <video
           className="recipe-fire-video"
           autoPlay
@@ -40,6 +40,8 @@ const RecipeResult = memo(function RecipeResult({
           loop
           playsInline
           preload="none"
+          aria-hidden="true"
+          tabIndex={-1}
         >
           <source src="/videos/fire-loop.mp4" type="video/mp4" />
         </video>

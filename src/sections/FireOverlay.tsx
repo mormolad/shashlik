@@ -9,6 +9,8 @@ const FireOverlay = memo(function FireOverlay({ visible }: FireOverlayProps) {
       {visible && (
         <motion.div
           className="fire-overlay"
+          role="status"
+          aria-live="polite"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -27,6 +29,8 @@ const FireOverlay = memo(function FireOverlay({ visible }: FireOverlayProps) {
               muted
               playsInline
               preload="none"
+              aria-hidden="true"
+              tabIndex={-1}
             >
               <source src="/videos/fire-celebration.mp4" type="video/mp4" />
             </video>

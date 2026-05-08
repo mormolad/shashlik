@@ -60,11 +60,12 @@
 
 ## 8. Доступность (a11y)
 
-- [ ] Кнопки-карточки `<motion.button>` без `aria-pressed` для состояния «выбрано».
-- [ ] Нет `<label>` или `aria-label` для слайдера остроты ([src/sections/RecipeForm.tsx](src/sections/RecipeForm.tsx)).
-- [ ] Видео-фон без `aria-hidden="true"` — скрин-ридеры могут пытаться его озвучить.
-- [ ] Контраст `--ash-text-soft` на `--carbon` — проверить через axe.
-- [ ] `<img>` логотипа без явных `width/height` — CLS-риск.
+- [x] `aria-pressed={selected}` добавлен на `SelectCard <motion.button>` в [src/sections/RecipeForm.tsx](src/sections/RecipeForm.tsx) (сделано в коммите 3, фиксируется здесь).
+- [x] Слайдер остроты получил `aria-label={t('recipe.form.sections.spiceLevel')}`.
+- [x] Background-видео ([src/sections/BackgroundVideo.tsx](src/sections/BackgroundVideo.tsx)) и оба декоративных видео в [src/sections/FireOverlay.tsx](src/sections/FireOverlay.tsx), [src/sections/RecipeResult.tsx](src/sections/RecipeResult.tsx) — `aria-hidden="true"` + `tabIndex={-1}`.
+- [x] `FireOverlay` обёртка снабжена `role="status"` + `aria-live="polite"` (анонсирует «генерация» неявно для скрин-ридеров).
+- [x] Логотип в футере получил явные `width={140} height={34}` (по soviet viewBox 841.9×202.3) + `loading="lazy"` + `decoding="async"` — устраняет CLS.
+- [ ] Контраст `--ash-text-soft` × `--carbon` — нужен ручной axe-прогон в браузере, оставлен открытым для финальной проверки в коммите 7 (perf/lighthouse).
 
 ## 9. Интернационализация (i18n)
 

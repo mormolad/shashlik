@@ -1,5 +1,3 @@
-import type { ComponentType } from 'react'
-
 import type {
   FatType,
   IntensityType,
@@ -7,6 +5,7 @@ import type {
   MeatType,
   StyleType,
 } from '../lib/marinade/types'
+import type { ComponentType } from 'react'
 
 export interface RecipeFormProps {
   selections: MarinadeInput

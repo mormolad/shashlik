@@ -23,12 +23,12 @@
 
 ## 3. UI/UX слой (`src/sections`, `src/App.tsx`)
 
-- [ ] Магическое число `setTimeout(1500)` в [src/App.tsx](src/App.tsx) для имитации генерации — вынести в константу 
-- [ ] `handleRandomize` в [src/App.tsx](src/App.tsx) вызывает `generateMarinadeRecipe(selections)` без нового seed — результат может совпадать. разница между кликами всё равно будет. 
-- [ ] `RecipeForm` принимает `onSelect` как универсальный generic-колбэк — это нарушает SRP: компонент знает обо всём `MarinadeInput`. Альтернатива: отдельные `onSelectMeat`, `onSelectStyle`.
-- [ ] `RecipeForm` содержит и логику опций (`meatOptions`, `styleOptions`), и презентацию — вынести опции в `lib/marinade/options.ts`.
-- [ ] `FireOverlay` рендерит видео даже когда `visible=false` (через `AnimatePresence`) — оптимизировать через `mountOnEnter`.
-- [ ] Background-видео в [src/sections/BackgroundVideo.tsx](src/sections/BackgroundVideo.tsx) с `preload="auto"` грузит большой файл сразу — поставить `preload="metadata"` и/или ленивую загрузку.
+- [x] `setTimeout(1500)` вынесен в `GENERATION_DELAY_MS` ([src/lib/ui/timings.ts](src/lib/ui/timings.ts)).
+- [x] ~~`handleRandomize` без нового seed~~ — оставлен, новый seed формируется внутри генератора (см. коммит 2).
+- [x] `RecipeForm.onSelect` разделён на 5 узких пропсов: `onSelectMeat`, `onSelectStyle`, `onSelectIntensity`, `onSelectFat`, `onSelectSpiceLevel`.
+- [x] Списки вариантов вынесены в [src/lib/marinade/options.ts](src/lib/marinade/options.ts) (`MEAT_VALUES`, `STYLE_VALUES`, `INTENSITY_VALUES`, `FAT_VALUES`). Маппинг мяса → иконка остался в `RecipeForm` как чистая UI-деталь.
+- [x] `FireOverlay` уже использует `{visible && (...)}` внутри `AnimatePresence` — видео не монтируется при `visible=false` (отдельной правки не потребовалось).
+- [x] [src/sections/BackgroundVideo.tsx](src/sections/BackgroundVideo.tsx): `preload="auto"` → `preload="metadata"`.
 
 ## 4. Стили (`src/styles/`, дизайн-токены)
 

@@ -1,28 +1,50 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useCallback } from 'react';
 
+import { DEFAULT_SELECTIONS } from './lib/marinade/defaults';
+import { generateMarinadeRecipe } from './lib/marinade/generator';
+import { GENERATION_DELAY_MS } from './lib/ui/timings';
 import BackgroundVideo from './sections/BackgroundVideo';
 import FireOverlay from './sections/FireOverlay';
 import RecipeForm from './sections/RecipeForm';
 import RecipeResult from './sections/RecipeResult';
+
 import './styles/index.css';
-import { DEFAULT_SELECTIONS } from './lib/marinade/defaults';
-import { generateMarinadeRecipe } from './lib/marinade/generator';
 
 import type { MarinadeInput, MarinadeRecipe } from './lib/marinade/types';
 import type { AppState } from './types/app';
 
 function App() {
-  const [selections, setSelections] =
-    useState<MarinadeInput>(DEFAULT_SELECTIONS);
+  const [selections, setSelections] = useState<MarinadeInput>(DEFAULT_SELECTIONS);
   const [appState, setAppState] = useState<AppState>('form');
   const [recipe, setRecipe] = useState<MarinadeRecipe | null>(null);
 
-  const handleSelect = useCallback(
+  const updateField = useCallback(
     <K extends keyof MarinadeInput>(category: K, value: MarinadeInput[K]) => {
       setSelections((prev) => ({ ...prev, [category]: value }));
     },
     [],
+  );
+
+  const onSelectMeat = useCallback(
+    (value: MarinadeInput['meat']) => updateField('meat', value),
+    [updateField],
+  );
+  const onSelectStyle = useCallback(
+    (value: MarinadeInput['style']) => updateField('style', value),
+    [updateField],
+  );
+  const onSelectIntensity = useCallback(
+    (value: MarinadeInput['intensity']) => updateField('intensity', value),
+    [updateField],
+  );
+  const onSelectFat = useCallback(
+    (value: MarinadeInput['fat']) => updateField('fat', value),
+    [updateField],
+  );
+  const onSelectSpiceLevel = useCallback(
+    (value: number) => updateField('spiceLevel', value),
+    [updateField],
   );
 
   const handleGenerate = useCallback(() => {
@@ -31,7 +53,7 @@ function App() {
     setAppState('generating');
     setTimeout(() => {
       setAppState('result');
-    }, 1500);
+    }, GENERATION_DELAY_MS);
   }, [selections]);
 
   const handleReset = useCallback(() => {
@@ -61,7 +83,11 @@ function App() {
             >
               <RecipeForm
                 selections={selections}
-                onSelect={handleSelect}
+                onSelectMeat={onSelectMeat}
+                onSelectStyle={onSelectStyle}
+                onSelectIntensity={onSelectIntensity}
+                onSelectFat={onSelectFat}
+                onSelectSpiceLevel={onSelectSpiceLevel}
                 onGenerate={handleGenerate}
               />
             </motion.div>

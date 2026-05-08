@@ -10,7 +10,7 @@ const BackgroundVideo = memo(function BackgroundVideo() {
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
       >
         <source src="/videos/bg-coals.mp4" type="video/mp4" />
       </video>

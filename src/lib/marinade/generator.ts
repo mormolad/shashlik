@@ -1,23 +1,22 @@
 import { calcSpiceAmount } from './calcAmounts'
 import { createSeededRandom, randomBetween, roundToHalf } from './math'
-import { getAlcoholNote, getCutNote } from './notes'
+import { getAlcoholNoteKey, getCutNoteKey } from './notes'
 import {
   BASE_INGREDIENTS,
   LEMON_JUICE_BASE_GRAMS,
   LEMON_JUICE_VARIANCE,
-  MARINADE_TIME_LABELS,
   MEAT_RULES,
   PEPPER_BASE_PER_KG,
   REQUIRED_SPICES_BY_MEAT,
-  STYLE_LABELS,
 } from './rules'
 import { filterConflicts, selectStyleSpices } from './selectSpices'
-import { SPICE_DB, SPICE_LABELS_RU } from './spice-db'
+import { SPICE_DB } from './spice-db'
 
 import type {
   MarinadeIngredient,
   MarinadeInput,
   MarinadeRecipe,
+  RecipeStep,
   SpiceDefinition,
 } from './types'
 
@@ -27,7 +26,7 @@ function getSpice(name: string): SpiceDefinition | undefined {
 
 function makeIngredient(name: string, amountGrams: number): MarinadeIngredient {
   return {
-    name: SPICE_LABELS_RU[name] ?? name,
+    name,
     amount: `${amountGrams} г`,
     amountGrams,
   }
@@ -54,6 +53,16 @@ function calcBaseAmount(name: BaseName, input: MarinadeInput): number | null {
   // onion
   const baseItem = BASE_INGREDIENTS.find((item) => item.name === 'onion')
   return roundToHalf(baseItem?.amount ?? 300)
+}
+
+function buildSteps(input: MarinadeInput): RecipeStep[] {
+  const recommendedTime = MEAT_RULES[input.meat].marinationTime
+  return [
+    { key: 'recipe.steps.mixDry' },
+    { key: 'recipe.steps.combine' },
+    { key: 'recipe.steps.recommendedTime', params: { time: recommendedTime } },
+    { key: 'recipe.steps.dryBeforeGrill' },
+  ]
 }
 
 /**
@@ -115,27 +124,19 @@ export function generateMarinadeRecipe(input: MarinadeInput, seed?: number): Mar
     .filter((name, idx, arr) => arr.indexOf(name) === idx)
     .map((name) => makeIngredient(name, amountMap.get(name) ?? 1))
 
-  const recommendedTime = MEAT_RULES[input.meat].marinationTime
-  const steps = [
-    'Смешайте сухие специи в отдельной миске.',
-    'Добавьте лук, соль и перец, затем вмешайте остальные ингредиенты.',
-    `Рекомендуемое время маринования для этого мяса: ${recommendedTime}.`,
-    'Перед жаркой уберите излишки маринада и обсушите мясо.',
-  ]
-
   return {
     meat: input.meat,
     style: input.style,
     intensity: input.intensity,
     fat: input.fat,
     ingredients,
-    steps,
+    steps: buildSteps(input),
     meta: {
-      marinadeTimeText: MARINADE_TIME_LABELS[input.marinadeTime],
-      cutNote: getCutNote(input.cutType),
-      alcoholNote: getAlcoholNote(input.alcoholPairing),
+      marinadeTimeKey: `recipe.form.options.marinadeTime.${input.marinadeTime}`,
+      cutNoteKey: getCutNoteKey(input.cutType),
+      alcoholNoteKey: getAlcoholNoteKey(input.alcoholPairing),
+      styleKey: `recipe.form.options.style.${input.style}`,
       spiceLevel: input.spiceLevel,
-      styleLabel: STYLE_LABELS[input.style],
     },
   }
 }

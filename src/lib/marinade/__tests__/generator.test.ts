@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import { generateMarinadeRecipe } from '../generator'
 import { REQUIRED_SPICES_BY_MEAT } from '../rules'
-import { HARD_CONFLICTS, SPICE_LABELS_RU } from '../spice-db'
+import { HARD_CONFLICTS } from '../spice-db'
 
 import type { MarinadeInput, MeatType } from '../types'
 
@@ -19,12 +19,7 @@ const baseInput: MarinadeInput = {
 
 function ingredientNames(input: MarinadeInput, seed: number): string[] {
   const recipe = generateMarinadeRecipe(input, seed)
-  // Назад из RU-лейбла в имя из SPICE_DB (через обратный словарь),
-  // плюс добавляем имя как есть, если не нашли (например, для unrecognized).
-  const reverse = Object.fromEntries(
-    Object.entries(SPICE_LABELS_RU).map(([k, v]) => [v, k]),
-  )
-  return recipe.ingredients.map((ing) => reverse[ing.name] ?? ing.name)
+  return recipe.ingredients.map((ing) => ing.name)
 }
 
 describe('generateMarinadeRecipe', () => {
@@ -111,13 +106,23 @@ describe('generateMarinadeRecipe', () => {
     }
   })
 
-  it('returns the expected style label', () => {
-    const recipe = generateMarinadeRecipe({ ...baseInput, style: 'caucasus' }, 1)
-    expect(recipe.meta.styleLabel).toBe('Кавказский')
+  it('returns i18n keys for style/marinade time/notes', () => {
+    const recipe = generateMarinadeRecipe(
+      { ...baseInput, style: 'caucasus', marinadeTime: 'long', cutType: 'steak', alcoholPairing: 'wine' },
+      1,
+    )
+    expect(recipe.meta.styleKey).toBe('recipe.form.options.style.caucasus')
+    expect(recipe.meta.marinadeTimeKey).toBe('recipe.form.options.marinadeTime.long')
+    expect(recipe.meta.cutNoteKey).toBe('recipe.notes.cut.steak')
+    expect(recipe.meta.alcoholNoteKey).toBe('recipe.notes.alcohol.wine')
   })
 
-  it('returns 4 step instructions', () => {
+  it('returns 4 step instructions with i18n keys', () => {
     const recipe = generateMarinadeRecipe(baseInput, 1)
     expect(recipe.steps).toHaveLength(4)
+    expect(recipe.steps[0].key).toBe('recipe.steps.mixDry')
+    expect(recipe.steps[2].key).toBe('recipe.steps.recommendedTime')
+    expect(recipe.steps[2].params).toBeDefined()
+    expect(recipe.steps[2].params?.time).toBeTypeOf('string')
   })
 })

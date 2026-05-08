@@ -37,18 +37,33 @@ export interface SpiceDefinition {
   priority: number
 }
 
+/**
+ * Один шаг рецепта в формате "ключ i18n + параметры".
+ * UI достаёт его как `t(step.key, step.params)`.
+ */
+export interface RecipeStep {
+  key: string
+  params?: Record<string, string | number>
+}
+
 export interface MarinadeIngredient {
+  /** Имя из SPICE_DB ('cumin', 'salt', 'lemon_juice', ...). UI переводит как `t('recipe.spice.${name}')`. */
   name: string
+  /** Локализованная строка вида "12 г". */
   amount: string
   amountGrams: number
 }
 
 export interface MarinadeMeta {
-  marinadeTimeText: string
-  cutNote: string
-  alcoholNote: string
+  /** Ключ i18n для длительности маринования (например, 'recipe.form.options.marinadeTime.standard'). */
+  marinadeTimeKey: string
+  /** Ключ i18n для заметки по типу нарезки. */
+  cutNoteKey: string
+  /** Ключ i18n для заметки по сочетанию с алкоголем. */
+  alcoholNoteKey: string
+  /** Ключ i18n для названия стиля. */
+  styleKey: string
   spiceLevel: number
-  styleLabel: string
 }
 
 export interface MarinadeRecipe {
@@ -57,6 +72,6 @@ export interface MarinadeRecipe {
   intensity: IntensityType
   fat: FatType
   ingredients: MarinadeIngredient[]
-  steps: string[]
+  steps: RecipeStep[]
   meta: MarinadeMeta
 }

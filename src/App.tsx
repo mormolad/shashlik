@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { DEFAULT_SELECTIONS } from './lib/marinade/defaults';
 import { generateMarinadeRecipe } from './lib/marinade/generator';
@@ -15,6 +16,7 @@ import type { MarinadeInput, MarinadeRecipe } from './lib/marinade/types';
 import type { AppState } from './types/app';
 
 function App() {
+  const { t } = useTranslation();
   const [selections, setSelections] = useState<MarinadeInput>(DEFAULT_SELECTIONS);
   const [appState, setAppState] = useState<AppState>('form');
   const [recipe, setRecipe] = useState<MarinadeRecipe | null>(null);
@@ -111,9 +113,7 @@ function App() {
         </AnimatePresence>
 
         <footer className="site-footer">
-          <div className="footer-signature">
-            Разработано с любовью к шашлыкам и под патронажем
-          </div>
+          <div className="footer-signature">{t('footer.signature')}</div>
           <div className="footer-logo-centered">
             <img
               src="/PointPuls.svg"

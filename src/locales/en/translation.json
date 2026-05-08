@@ -3,9 +3,12 @@
     "loading": "Loading...",
     "error": "Error"
   },
+  "footer": {
+    "signature": "Made with love for shashlik, under PointPuls patronage"
+  },
   "recipe": {
     "form": {
-      "title": "Marinade Generator",
+      "title": "Grilling time.",
       "subtitle": "for true grill masters",
       "sections": {
         "meat": "Meat",
@@ -20,17 +23,127 @@
         "hot": "Hot"
       },
       "options": {
+        "meat": {
+          "pork": "Pork",
+          "pork_hint": "Neck or loin",
+          "chicken": "Chicken",
+          "chicken_hint": "Thighs or breast",
+          "beef": "Beef",
+          "beef_hint": "Tenderloin or entrecote",
+          "lamb": "Lamb",
+          "lamb_hint": "Loin or shoulder",
+          "turkey": "Turkey",
+          "turkey_hint": "Fillet or thigh"
+        },
         "style": {
+          "classic": "Classic",
+          "classic_hint": "The reliable base",
+          "caucasus": "Caucasus",
+          "caucasus_hint": "Cumin, coriander, sumac",
+          "turkish": "Turkish",
+          "turkish_hint": "Mint and warm notes",
+          "eastern": "Eastern",
+          "eastern_hint": "Warm spices",
+          "spicy": "Spicy",
+          "spicy_hint": "Heat-forward",
+          "premium": "Premium",
+          "premium_hint": "More layered",
+          "herbal": "Herbal",
+          "herbal_hint": "Fresh herbs",
           "express": "Express",
           "express_hint": "Quick recipe"
+        },
+        "intensity": {
+          "light": "Light",
+          "light_hint": "Subtle taste",
+          "medium": "Medium",
+          "medium_hint": "Balanced",
+          "strong": "Strong",
+          "strong_hint": "Bold flavor"
+        },
+        "fat": {
+          "lean": "Lean",
+          "lean_hint": "Lean cuts",
+          "normal": "Normal",
+          "normal_hint": "Average fat",
+          "fatty": "Fatty",
+          "fatty_hint": "Fatty cuts"
+        },
+        "marinadeTime": {
+          "label": "Marinade time",
+          "quick": "2-4 hours",
+          "standard": "6-8 hours",
+          "long": "10-12 hours"
+        },
+        "cutType": {
+          "label": "Cut type",
+          "cube": "Cubes",
+          "steak": "Steak",
+          "ribs": "Ribs"
+        },
+        "alcohol": {
+          "label": "With drink",
+          "none": "None",
+          "wine": "Wine",
+          "beer": "Beer",
+          "vodka": "Vodka"
         }
       },
       "generate": "Generate Recipe"
     },
     "result": {
       "title": "Your Recipe",
+      "titleSuffix": "{{style}} marinade",
+      "ingredients": "INGREDIENTS",
+      "preparation": "PREPARATION",
       "copy": "Copy",
-      "share": "Share"
+      "share": "Share",
+      "reset": "Reset",
+      "randomize": "Another variation"
+    },
+    "steps": {
+      "mixDry": "Mix dry spices in a separate bowl.",
+      "combine": "Add onion, salt and pepper, then fold in the rest.",
+      "recommendedTime": "Recommended marinating time for this meat: {{time}}.",
+      "dryBeforeGrill": "Before grilling, drain excess marinade and pat the meat dry."
+    },
+    "notes": {
+      "cut": {
+        "steak": "For steaks keep the marinade gentle, avoid excess acidity.",
+        "ribs": "For ribs you can extend marinating by 1-2 hours.",
+        "cube": "For 4-5 cm cubes ensure even marinade coverage."
+      },
+      "alcohol": {
+        "wine": "With wine: add a pinch of thyme and sumac.",
+        "beer": "With beer: amplify smoky notes with paprika.",
+        "vodka": "With strong spirits: keep salt and heat balanced.",
+        "none": "Universal profile, no alcohol accent."
+      }
+    },
+    "spice": {
+      "salt": "Salt",
+      "black_pepper": "Black pepper",
+      "onion": "Onion",
+      "cumin": "Cumin",
+      "coriander": "Coriander",
+      "paprika": "Paprika",
+      "smoked_paprika": "Smoked paprika",
+      "garlic": "Garlic",
+      "basil": "Basil",
+      "mint": "Mint",
+      "rosemary": "Rosemary",
+      "dill": "Dill",
+      "chili": "Chili",
+      "sumac": "Sumac",
+      "thyme": "Thyme",
+      "oregano": "Oregano",
+      "turmeric": "Turmeric",
+      "mustard_seed": "Mustard seed",
+      "curry": "Curry",
+      "lemon_zest": "Lemon zest",
+      "lemon_juice": "Lemon juice",
+      "khmeli_suneli": "Khmeli-suneli",
+      "utskho_suneli": "Utskho-suneli"
     }
   }
 }

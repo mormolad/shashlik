@@ -68,10 +68,12 @@
 
 ## 9. Интернационализация (i18n)
 
-- [ ] [src/i18n.ts](src/i18n.ts) подключён через `LanguageDetector`, но в коде остались **захардкоженные** строки: «ИНГРЕДИЕНТЫ», «ПРИГОТОВЛЕНИЕ», «Острота», «маринад» в [src/sections/RecipeResult.tsx](src/sections/RecipeResult.tsx); «Разработано с любовью к шашлыкам и под патронажем» в [src/App.tsx](src/App.tsx).
-- [ ] Шаги рецепта и ноты (`cutNote`, `alcoholNote`) собираются как строки RU прямо в генераторе — вынести ключи в локали.
-- [ ] Имена специй из `SPICE_LABELS_RU` ([src/lib/marinade/spice-db.ts](src/lib/marinade/spice-db.ts)) — оставить ключи и переводить через i18n, чтобы добавить EN.
-- [ ] Файл [src/locales/en/translation.json](src/locales/en/translation.json) проверить на полноту относительно `ru/translation.json`.
+- [x] Захардкоженные строки в [src/sections/RecipeResult.tsx](src/sections/RecipeResult.tsx) («ИНГРЕДИЕНТЫ», «ПРИГОТОВЛЕНИЕ», «Острота», «{styleLabel} маринад») заменены на `t(...)`.
+- [x] Подпись в футере [src/App.tsx](src/App.tsx) → `t('footer.signature')`.
+- [x] Генератор больше не возвращает RU-строки. `MarinadeRecipe.steps` стал массивом `{ key, params? }`, `MarinadeMeta` хранит `styleKey`/`marinadeTimeKey`/`cutNoteKey`/`alcoholNoteKey`. Локализация полностью на стороне UI.
+- [x] `SPICE_LABELS_RU` удалён. Ингредиенты возвращают `name` = имя из `SPICE_DB` (`'cumin'`, `'salt'`, ...). UI переводит через `t(`recipe.spice.${name}`)`.
+- [x] `STYLE_LABELS` и `MARINADE_TIME_LABELS` удалены из `rules.ts` — данные больше не дублируются в коде и в `translation.json`.
+- [x] [src/locales/ru/translation.json](src/locales/ru/translation.json) и [src/locales/en/translation.json](src/locales/en/translation.json) дополнены: `footer.*`, `recipe.steps.*`, `recipe.notes.cut.*`, `recipe.notes.alcohol.*`, `recipe.spice.*`, `recipe.result.titleSuffix`, `recipe.result.ingredients`, `recipe.result.preparation`, полный список ключей `recipe.form.options.*`. EN-локаль доведена до полноты RU.
 
 ## 10. Безопасность
 

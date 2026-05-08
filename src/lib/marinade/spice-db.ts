@@ -56,28 +56,14 @@ export const HIGH_DOSE_CONFLICTS: Array<[string, string]> = [
   ['basil', 'cumin'],
 ]
 
-export const SPICE_LABELS_RU: Record<string, string> = {
-  salt: 'Соль',
-  black_pepper: 'Черный перец',
-  onion: 'Лук',
-  cumin: 'Зира',
-  coriander: 'Кориандр',
-  paprika: 'Паприка',
-  smoked_paprika: 'Копченая паприка',
-  garlic: 'Чеснок',
-  basil: 'Базилик',
-  mint: 'Мята',
-  rosemary: 'Розмарин',
-  dill: 'Укроп',
-  chili: 'Перец чили',
-  sumac: 'Сумах',
-  thyme: 'Тимьян',
-  oregano: 'Орегано',
-  turmeric: 'Куркума',
-  mustard_seed: 'Горчичные зерна',
-  curry: 'Карри',
-  lemon_zest: 'Цедра лимона',
-  lemon_juice: 'Лимонный сок',
-  khmeli_suneli: 'Хмели-сунели',
-  utskho_suneli: 'Уцхо-сунели',
-}
+/**
+ * Все известные имена ингредиентов (база + специи + lemon_juice).
+ * Используется как whitelist для i18n-ключей `recipe.spice.${name}`.
+ */
+export const ALL_INGREDIENT_NAMES = [
+  'salt',
+  'black_pepper',
+  'onion',
+  'lemon_juice',
+  ...SPICE_DB.map((s) => s.name),
+] as const

@@ -1,22 +1,22 @@
 import type { AlcoholPairing, CutType } from './types'
 
-const CUT_NOTES: Record<CutType, string> = {
-  steak: 'Для стейков держите маринад мягче и без избытка кислоты.',
-  ribs: 'Для ребер можно увеличить время маринования на 1-2 часа.',
-  cube: 'Для кубиков 4-5 см соблюдайте равномерное покрытие маринадом.',
+const CUT_NOTE_KEYS: Record<CutType, string> = {
+  steak: 'recipe.notes.cut.steak',
+  ribs: 'recipe.notes.cut.ribs',
+  cube: 'recipe.notes.cut.cube',
 }
 
-const ALCOHOL_NOTES: Record<AlcoholPairing, string> = {
-  wine: 'Под вино: добавьте щепотку тимьяна и сумаха.',
-  beer: 'Под пиво: усилите копченые ноты паприкой.',
-  vodka: 'Под крепкий алкоголь: держите баланс соли и остроты.',
-  none: 'Универсальный профиль без алкогольного акцента.',
+const ALCOHOL_NOTE_KEYS: Record<AlcoholPairing, string> = {
+  wine: 'recipe.notes.alcohol.wine',
+  beer: 'recipe.notes.alcohol.beer',
+  vodka: 'recipe.notes.alcohol.vodka',
+  none: 'recipe.notes.alcohol.none',
 }
 
-export function getCutNote(cutType: CutType): string {
-  return CUT_NOTES[cutType]
+export function getCutNoteKey(cutType: CutType): string {
+  return CUT_NOTE_KEYS[cutType]
 }
 
-export function getAlcoholNote(pairing: AlcoholPairing): string {
-  return ALCOHOL_NOTES[pairing]
+export function getAlcoholNoteKey(pairing: AlcoholPairing): string {
+  return ALCOHOL_NOTE_KEYS[pairing]
 }

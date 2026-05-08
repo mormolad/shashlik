@@ -1,10 +1,8 @@
 import type {
   FatType,
   IntensityType,
-  MarinadeTimePreference,
   MeatType,
   SpiceType,
-  StyleType,
 } from './types'
 
 export const MEAT_RULES: Record<MeatType, { saltPerKg: number; marinationTime: string }> = {
@@ -57,23 +55,6 @@ export const BRIGHT_TYPES: SpiceType[] = ['hot', 'smoky', 'acid']
 export const FAT_TYPE_BOOSTS = {
   leanAromaticBoost: 1.2,
   fattyBrightBoost: 1.25,
-}
-
-export const STYLE_LABELS: Record<StyleType, string> = {
-  classic: 'Классический',
-  caucasus: 'Кавказский',
-  turkish: 'Турецкий',
-  eastern: 'Восточный',
-  spicy: 'Острый',
-  premium: 'Премиальный',
-  herbal: 'Травяной',
-  express: 'Быстрый',
-}
-
-export const MARINADE_TIME_LABELS: Record<MarinadeTimePreference, string> = {
-  quick: '2-4 часа',
-  standard: '6-8 часов',
-  long: '10-12 часов',
 }
 
 // --- Tunables for the generator (extracted from magic numbers) ---

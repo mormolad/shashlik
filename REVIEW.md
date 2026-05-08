@@ -75,10 +75,10 @@
 
 ## 10. Безопасность
 
-- [ ] Файл `.env` содержит 1 строку — проверить, нет ли там секрета. Не пушить.
-- [ ] История уже была переписана из-за Figma PAT — пройтись `git log -p` по `**/*.json` и `**/*.md` на предмет других токенов.
-- [ ] Добавить `dependabot.yml` или Renovate для автообновлений security-патчей.
-- [ ] `npm audit` — проверить и зафиксировать в чек-листе текущий результат.
+- [x] Файл `.env` содержит `FIGMA_API_KEY` — **ключ нужно отозвать в Figma** (он был засвечен в первом push'е). Создан [.env.example](.env.example) как образец. `.env` уже игнорируется через [.gitignore](.gitignore).
+- [x] История проверена `git log -p` по `*.json/*.md/*.ts/*.tsx` на токены — посторонних секретов не найдено.
+- [x] Добавлен [.github/dependabot.yml](.github/dependabot.yml) (npm weekly, github-actions monthly).
+- [x] `npm audit --omit=dev` — **0 vulnerabilities** на момент ревью.
 
 ## 11. Качество кода (SOLID/KISS/DRY)
 

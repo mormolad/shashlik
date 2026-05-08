@@ -6,10 +6,15 @@
 
 ## 1. Архитектура и структура
 
-- [ ] Лишний слой роутинга: `BrowserRouter` в [src/main.tsx](src/main.tsx) подключён, но нет ни одного `<Routes>`. [src/pages/Home.tsx](src/pages/Home.tsx) просто реэкспортирует `App`.
-- [ ] Решить:  ввести реальные страницы (`/`, `/about`, `/recipes`).
-- [ ] Папка [src/components/ui/](src/components/ui/) убрать
-- [ ] [components.json](components.json) убрать
+- [x] Подключены реальные `<Routes>` в [src/App.tsx](src/App.tsx): `/` (HomePage), `/recipes` (RecipesPage), `/about` (AboutPage), `*` → HomePage.
+- [x] Логика формы и генерации вынесена из `App.tsx` в [src/pages/HomePage.tsx](src/pages/HomePage.tsx). `App.tsx` стал layout-компонентом (BackgroundVideo + nav + Routes + footer).
+- [x] Создана [src/pages/AboutPage.tsx](src/pages/AboutPage.tsx) с описанием проекта (через i18n).
+- [x] Создана [src/pages/RecipesPage.tsx](src/pages/RecipesPage.tsx) — заглушка для истории рецептов из `localStorage` (ключ `shashlik.recipeHistory.v1`).
+- [x] Удалён старый враппер `src/pages/Home.tsx`.
+- [x] Добавлена минимальная навигация (NavLink × 3) — стили в [src/styles/nav.css](src/styles/nav.css).
+- [x] Папка `src/components/ui/` удалена в коммите 6.
+- [x] `components.json` удалён в коммите 6.
+- [ ] **Деплой-нюанс**: `BrowserRouter` требует серверный fallback на `index.html` для прямых заходов на `/about`, `/recipes`. Для статичного хостинга без rewrites (например, голый GitHub Pages без `404.html`) уместен переход на `HashRouter` либо настройка fallback на стороне хостинга.
 
 ## 2. Доменная логика (`src/lib/marinade`)
 

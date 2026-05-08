@@ -6,6 +6,31 @@
   "footer": {
     "signature": "Made with love for shashlik, under PointPuls patronage"
   },
+  "nav": {
+    "label": "Primary navigation",
+    "home": "Marinade",
+    "recipes": "My recipes",
+    "about": "About"
+  },
+  "about": {
+    "title": "About",
+    "lead": "Shashlik.Master assembles a marinade recipe based on your meat, style and fat preferences.",
+    "howItWorks": {
+      "label": "HOW IT WORKS",
+      "step1": "Pick meat, style, intensity, fat and spiciness.",
+      "step2": "The algorithm picks required spices and random style spices respecting compatibility and conflicts.",
+      "step3": "Final amounts are computed from meat type, intensity and fat coefficients."
+    },
+    "stack": {
+      "label": "STACK",
+      "line1": "React 19 + TypeScript + Vite, framer-motion for animations.",
+      "line2": "i18next for RU/EN locales, vitest for unit tests of the core."
+    }
+  },
+  "recipes": {
+    "title": "My recipes",
+    "empty": "History is empty for now. Generate a marinade on the home page — it will be saved here (in the browser)."
+  },
   "recipe": {
     "form": {
       "title": "Grilling time.",

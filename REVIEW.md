@@ -82,10 +82,13 @@
 
 ## 11. Качество кода (SOLID/KISS/DRY)
 
-- [ ] **SRP**: [src/lib/marinade/generator.ts](src/lib/marinade/generator.ts) (222 строки) делает слишком много — выбор специй, расчёт количеств, форматирование, текстовые ноты. Разделить на `selectSpices.ts`, `calcAmounts.ts`, `format.ts`.
-- [ ] **DRY**: `getCutNote` и `getAlcoholNote` ([src/lib/marinade/generator.ts](src/lib/marinade/generator.ts) стр. 103-114) — два почти одинаковых switch-блока, обобщить через словарь.
-- [ ] **KISS**: `filterConflicts` мутирует и пересоздаёт массив 3 раза — упростить до одного `reduce`.
-- [ ] [.cursor/rules/design.mdc](.cursor/rules/design.mdc) предписывает использовать `src/components/ui` как foundation, но они отсутствуют — либо привести к правилу, либо обновить правило.
+- [x] **SRP**: `generator.ts` разнесён по обязанностям — теперь это оркестратор, остальное вынесено:
+  - [src/lib/marinade/selectSpices.ts](src/lib/marinade/selectSpices.ts) — `selectStyleSpices`, `filterConflicts`.
+  - [src/lib/marinade/calcAmounts.ts](src/lib/marinade/calcAmounts.ts) — `calcSpiceAmount` + хелперы.
+  - [src/lib/marinade/notes.ts](src/lib/marinade/notes.ts) — `getCutNote`, `getAlcoholNote`.
+- [x] **DRY**: `getCutNote` и `getAlcoholNote` обобщены через словари (`CUT_NOTES`, `ALCOHOL_NOTES`) в [notes.ts](src/lib/marinade/notes.ts).
+- [x] **KISS**: `filterConflicts` упрощена — собирает `Set` из имён к удалению одним проходом, без мутаций промежуточного массива.
+- [x] [.cursor/rules/design.mdc](.cursor/rules/design.mdc) переписан под актуальную архитектуру (без Tailwind/Radix/`components/ui`, описана структура `styles/`, `sections/`, `lib/marinade/`).
 
 ## 12. Билд и инфраструктура
 

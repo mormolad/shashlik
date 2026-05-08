@@ -2,168 +2,102 @@
 alwaysApply: true
 ---
 Figma MCP Integration Rules (для shashlik)
-1) Design System Structure
-Источник токенов: глобальные CSS-переменные в src/index.css (@layer base, :root).
-Модель токенов:
-Брендовые/семантические HEX/RGBA (--void, --carbon, --ember, --ash и т.д.).
-HSL-токены для UI-системы (--background, --primary, --border, --radius и т.д.).
-Трансформация токенов: через tailwind.config.js токены маппятся в Tailwind colors/radius (hsl(var(--...))).
-Рекомендация для Figma MCP:
-Создавать/обновлять Variables в Figma по токенам из :root.
-Использовать семантические токены (primary, foreground, muted) как основной слой, а не raw-цвета.
 
-index.css
-Lines 6-36
+# Текущая архитектура (после ревью)
+
+Tailwind, shadcn/ui и `src/components/ui/` из проекта удалены. Стили
+полностью на CSS-переменных + классах в `src/styles/`.
+
+## 1) Design System Structure
+
+Источник токенов: глобальные CSS-переменные в `src/index.css`.
+
+Модель токенов:
+- Брендовые/семантические HEX/RGBA (`--void`, `--carbon`, `--ember`, `--ash` и т.д.).
+- HSL-тройки в `:root` для совместимости со старыми проектами (но Tailwind/shadcn в shashlik не используется).
+- Опциональные оверлеи и токены интерфейса: `--overlay-strong`, `--surface-elevated`, `--ash-text-soft` и пр.
+
+Рекомендации для Figma MCP:
+- Создавать/обновлять Variables в Figma по токенам из `:root` файла `src/index.css`.
+- Использовать семантические токены (`--ember`, `--ash`, `--carbon`) как основной слой, а не raw HEX.
+
+```css
 :root {
   --void: #000000;
   --carbon: #1a1816;
   --ember: #d64e1e;
   --ash: #e5e0d8;
   --white: #ffffff;
-  ...
-  --background: 0 0% 0%;
-  --foreground: 36 14% 88%;
-  --primary: 14 74% 48%;
-  ...
+  /* ... оверлеи, поверхности, типографика ... */
   --radius: 0.75rem;
 }
+```
 
-tailwind.config.js
-Lines 7-58
-extend: {
-  colors: {
-    border: "hsl(var(--border))",
-    background: "hsl(var(--background))",
-    foreground: "hsl(var(--foreground))",
-    primary: {
-      DEFAULT: "hsl(var(--primary))",
-      foreground: "hsl(var(--primary-foreground))",
-    },
-    ...
-  },
-  borderRadius: {
-    lg: "var(--radius)",
-    md: "calc(var(--radius) - 2px)",
-    ...
-  },
-}
-2) Component Library
-UI-компоненты: src/components/ui/* (большой набор primitive/compound-компонентов).
-Архитектура:
-Radix primitives + shadcn-style wrappers.
-Вариативность через class-variance-authority (cva).
-Общий helper cn() (clsx + tailwind-merge) в src/lib/utils.ts.
-Документация/Storybook:
-storybook и *.stories.* не найдены.
-Есть components.json (shadcn schema), что подтверждает паттерн генерации и алиасы.
-Рекомендация для Figma MCP:
-При генерации кода маппить Figma-компоненты в src/components/ui в первую очередь.
-Если подходящего компонента нет — собирать через существующие primitives, без создания дублирующих паттернов (KISS).
+## 2) Структура стилей
 
-utils.ts
-Lines 1-7
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
+`src/styles/` собран в барель `src/styles/index.css`, импортируется в `App.tsx`:
 
-button.tsx
-Lines 7-37
-const buttonVariants = cva(
-  "inline-flex items-center justify-center ...",
-  {
-    variants: {
-      variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        ...
-      },
-      size: {
-        default: "h-9 px-4 py-2 ...",
-        ...
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
-    },
-  }
-)
-3) Frameworks & Libraries
-Framework: React 19 + TypeScript.
-Routing: react-router (BrowserRouter в src/main.tsx).
-UI stack:
-Tailwind CSS + CSS variables.
-Radix UI primitives.
-framer-motion (анимации).
-lucide-react (иконки).
-Build/bundler: Vite (vite, @vitejs/plugin-react), PostCSS + Autoprefixer.
-Alias: @/* -> ./src/* (tsconfig, vite).
+- `layout.css` — каркас приложения и фоновые градиенты
+- `overlays.css` — fire-overlay (полноэкранный)
+- `form.css` — форма выбора параметров (`select-card`, `spice-slider`, `cta-button`, `generate-button`)
+- `recipe.css` — карточка результата (`recipe-result-card`, `recipe-content`, `recipe-ingredients`, `recipe-steps`)
+- `footer.css` — подвал с логотипом
+- `responsive.css` — медиа-запросы (`max-width: 1024px` и `max-width: 720px`)
 
-main.tsx
-Lines 6-10
-createRoot(document.getElementById('root')!).render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
-)
-4) Asset Management
-Использование ассетов: через абсолютные пути из /videos/... в <video><source .../></video>.
-Реальное хранение: в текущем workspace папка public пустая; файлы видео, вероятно, ожидаются внешне/не закоммичены.
-Оптимизация:
-Есть preload="auto" и preload="none" в разных местах.
-Специальной пайплайн-оптимизации изображений/видео не видно.
-CDN-конфиг: отсутствует.
-Рекомендация для Figma MCP:
-Для превью в Figma использовать скриншоты без зависимости от видео.
-Фиксировать fallback-стили для состояний без медиа.
+Иерархия CSS-классов: семантические (`.recipe-*`, `.form-*`, `.select-card`, `.site-footer`).
+Никаких utility-классов, никаких inline `style` без острой необходимости.
 
-BackgroundVideo.tsx
-Lines 7-16
-<video className="bg-video" autoPlay muted loop playsInline preload="auto">
-  <source src="/videos/bg-coals.mp4" type="video/mp4" />
-</video>
-5) Icon System
-Два слоя иконок:
-В src/components/ui/* — lucide-react.
-В feature-экране (RecipeForm) — кастомные inline SVG React-компоненты.
-Конвенция именования:
-UI: XIcon из lucide-react.
-Кастом: MeatIcon, ChickenIcon, WineIcon и т.д.
-Рекомендация для Figma MCP:
-Для дизайн-системы использовать lucide как базовый икон-пак.
-Кастомные SVG из feature считать локальными иллюстративными иконками (не foundation icons).
-6) Styling Approach
-Смешанный подход:
-Глобальный/feature CSS: src/App.css.
-Tailwind utility-классы: в src/components/ui.
-Глобальные токены: src/index.css.
-Методология:
-В feature-части — семантические class names (.recipe-*, .form-*).
-В UI-библиотеке — utility-first с data-атрибутами (data-slot, data-state).
-Responsive:
-В feature CSS через media queries (@media (max-width: 720px)).
-В UI через Tailwind responsive classes.
-Рекомендация для Figma MCP:
-При переносе экранов из Figma для feature-частей придерживаться существующих CSS-классов recipe-*.
-Для новых универсальных элементов — через src/components/ui + Tailwind utilities.
-7) Project Structure
-Текущая структура:
-src/components/ui — дизайн-системные блоки.
-src/sections — экранные/доменные секции приложения.
-src/pages — страницы (сейчас Home.tsx, но основной экран идет через App.tsx).
-src/lib, src/hooks — утилиты и хуки.
-Паттерн:
-UI primitives отдельно от feature-логики.
-Feature-экран шашлыка реализован как секции + CSS.
-Рекомендация для Figma MCP:
-Новые макеты раскладывать по тому же принципу: reusable в components/ui, page-specific в sections.
-Избегать смешивания бизнес-логики с универсальными UI-компонентами (SOLID: SRP).
-Практические правила для Figma → Code (MCP)
-Использовать токены из src/index.css как единственный источник цвета/радиусов.
-Сначала искать соответствие в src/components/ui, и только потом создавать новый компонент.
-Для кнопок/инпутов/модалок переиспользовать Radix/shadcn wrappers, не писать «с нуля».
-Для сложных motion-сцен копировать паттерн framer-motion из sections, не усложнять анимации.
-Держать стили простыми: feature CSS для уникального экрана, UI utilities для общих элементов (KISS).
-Иконки: lucide для system-level, inline SVG только для предметной графики экрана.
-Проверять наличие ассетов /videos/* до интеграции Figma screen capture.
+## 3) Компоненты
+
+Структура:
+- `src/sections/*` — feature-секции (`RecipeForm`, `RecipeResult`, `BackgroundVideo`, `FireOverlay`).
+- `src/components/icons/*` — кастомные SVG-иконки мяса/посуды.
+- `src/lib/marinade/*` — доменное ядро (`generator`, `selectSpices`, `calcAmounts`, `notes`, `rules`, `spice-db`, `math`, `types`).
+
+Когда из Figma приходит новый компонент:
+1. Сначала проверить, нет ли уже подходящего `select-card` / `recipe-*` / `form-*` блока.
+2. Если нет — добавить в соответствующий `src/styles/*.css` новый класс с семантическим именем.
+3. Бизнес-логику в feature-секции, переиспользуемые виджеты — в `src/components/`.
+
+## 4) Frameworks & Libraries
+
+- React 19 + TypeScript
+- Vite 7 (`base: './'`)
+- React Router 7 (используется только для `BrowserRouter`-обёртки, страниц пока нет)
+- framer-motion (анимации `RecipeForm`, `RecipeResult`, `FireOverlay`)
+- i18next + react-i18next (RU/EN, RU полный, EN заполняется по мере)
+
+Никакого Radix, никакого Tailwind, никакого `clsx`/`cva`.
+
+## 5) Asset Management
+
+- Видео-фон/огонь (`/videos/bg-coals.mp4`, `/videos/fire-loop.mp4`, `/videos/fire-celebration.mp4`)
+  — ожидаются в `public/`, могут отсутствовать в репо (поведение деградирует мягко: видео не показывается).
+- Логотип `/PointPuls.svg` — в `public/`.
+- При работе из Figma полагаться на скриншоты; не блокироваться отсутствием медиа.
+
+## 6) Icon System
+
+- Иконки приложения — кастомные SVG в `src/components/icons/MeatIcons.tsx`.
+- Lucide-react из проекта удалён (см. коммит «cleanup unused packages»).
+- Если нужна общая иконка — добавлять как inline SVG-компонент рядом с `MeatIcons.tsx`.
+
+## 7) Styling Approach
+
+- Семантические class-names: `.recipe-*`, `.form-*`, `.site-footer`, `.select-card`.
+- Дизайн-токены через CSS-переменные `var(--ember)` и т.п.
+- Адаптивность: ровно два брейкпойнта в `responsive.css` (1024px и 720px).
+- Анимации — через `framer-motion`, без CSS keyframes на уровне feature-секций.
+
+## 8) SOLID/KISS/DRY
+
+- Один CSS-файл = одна область ответственности (`form.css`, `recipe.css`, ...).
+- Доменное ядро `lib/marinade` разнесено по обязанностям: `selectSpices`, `calcAmounts`, `notes`, `generator` (только оркестрация).
+- Магические числа и доменные коэффициенты живут в `rules.ts` именованными константами.
+
+## 9) Что не делать (anti-patterns для проекта)
+
+- Не возвращать Tailwind / shadcn / Radix без явного запроса пользователя.
+- Не плодить `cn()`-утилит, `clsx`/`tailwind-merge` — их нет в зависимостях.
+- Не размазывать стили обратно в один монолитный `App.css`.
+- Не хардкодить RU-строки в новых компонентах — добавлять ключ в `src/locales/ru/translation.json` и брать через `t(...)`.

@@ -20,7 +20,6 @@ const defaultSelections: MarinadeInput = {
   cutType: 'cube',
   alcoholPairing: 'none',
   marinadeTime: 'standard',
-  nationalStyle: 'turkish',
 };
 
 function App() {

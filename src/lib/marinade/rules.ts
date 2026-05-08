@@ -3,7 +3,6 @@ import type {
   IntensityType,
   MarinadeTimePreference,
   MeatType,
-
   SpiceType,
   StyleType,
 } from './types'
@@ -47,9 +46,9 @@ export const INTENSITY_COEFFICIENT: Record<IntensityType, number> = {
 }
 
 export const FAT_GLOBAL_COEFFICIENT: Record<FatType, number> = {
-  lean: 1,
+  lean: 1.2,
   normal: 1,
-  fatty: 1,
+  fatty: 0.7,
 }
 
 export const AROMATIC_TYPES: SpiceType[] = ['warm', 'fresh', 'herb']
@@ -68,6 +67,7 @@ export const STYLE_LABELS: Record<StyleType, string> = {
   spicy: 'Острый',
   premium: 'Премиальный',
   herbal: 'Травяной',
+  express: 'Быстрый',
 }
 
 export const MARINADE_TIME_LABELS: Record<MarinadeTimePreference, string> = {
@@ -75,3 +75,30 @@ export const MARINADE_TIME_LABELS: Record<MarinadeTimePreference, string> = {
   standard: '6-8 часов',
   long: '10-12 часов',
 }
+
+// --- Tunables for the generator (extracted from magic numbers) ---
+
+/** Минимальная масса специи (г), ниже которой ингредиент не имеет смысла. */
+export const MIN_SPICE_AMOUNT_GRAMS = 0.5
+
+/** Лёгкий случайный разброс веса каждой специи (±10%). */
+export const RANDOM_VARIANCE: readonly [number, number] = [0.9, 1.1]
+
+/** Базовая масса лимонного сока для жирного мяса (г). */
+export const LEMON_JUICE_BASE_GRAMS = 30
+
+/** Лёгкий разброс лимонного сока (±5%). */
+export const LEMON_JUICE_VARIANCE: readonly [number, number] = [0.95, 1.05]
+
+/** Сколько стилевых специй добавлять (мин..макс). */
+export const STYLE_SPICE_COUNT: readonly [number, number] = [2, 4]
+
+/**
+ * Порог дозировки (г), выше которого пары из HIGH_DOSE_CONFLICTS
+ * считаются конфликтующими и одна из них удаляется.
+ */
+export const HIGH_DOSE_THRESHOLD_GRAMS = 4
+
+/** При spiceLevel = 5 hot-специи имеют коэффициент 1.2 (0.7 + 5/10). */
+export const SPICE_LEVEL_OFFSET = 0.7
+export const SPICE_LEVEL_DIVISOR = 10

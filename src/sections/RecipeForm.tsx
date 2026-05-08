@@ -36,7 +36,7 @@ const styleOptions: { value: StyleType }[] = [
   { value: 'spicy' },
   { value: 'premium' },
   { value: 'herbal' },
-  { value: 'quick' },
+  { value: 'express' },
 ]
 
 const intensityOptions: { value: IntensityType }[] = [

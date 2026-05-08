@@ -6,10 +6,25 @@
   "recipe": {
     "form": {
       "title": "Marinade Generator",
-      "description": "Select ingredients and parameters to create the perfect marinade.",
-      "ingredients": "Ingredients",
-      "meatType": "Meat Type",
-      "spiciness": "Spiciness",
+      "subtitle": "for true grill masters",
+      "sections": {
+        "meat": "Meat",
+        "style": "Style",
+        "intensity": "Intensity",
+        "fat": "Fat",
+        "spiceLevel": "Spiciness",
+        "v4_params": "Extras"
+      },
+      "spice": {
+        "mild": "Mild",
+        "hot": "Hot"
+      },
+      "options": {
+        "style": {
+          "express": "Express",
+          "express_hint": "Quick recipe"
+        }
+      },
       "generate": "Generate Recipe"
     },
     "result": {

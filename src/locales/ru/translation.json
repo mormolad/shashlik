@@ -19,7 +19,8 @@
         "mild": "Мягкий",
         "hot": "Острый"
       },
-      "options": {        "meat": {
+      "options": {
+        "meat": {
           "pork": "Свинина",
           "pork_hint": "Шейка или корейка",
           "chicken": "Курица",
@@ -30,14 +31,6 @@
           "lamb_hint": "Корейка или лопатка",
           "turkey": "Индейка",
           "turkey_hint": "Филе или бедро"
-        },
-        "nationalStyle": {
-          "label": "Национальный стиль",
-          "none": "Острота: 5/10",
-          "georgian": "Грузинский",
-          "armenian": "Армянский",
-          "turkish": "Турецкий",
-          "uzbek": "Узбекский"
         },
         "style": {
           "classic": "Классический",
@@ -54,9 +47,8 @@
           "premium_hint": "Более сложный вкус",
           "herbal": "Травяной",
           "herbal_hint": "Травяной акцент",
-          "quick": "Быстрый",
-          "quick_hint": "Минимум времени",
-          "smoky": "Дымный",          "smoky_hint": "Копченые ноты"
+          "express": "Быстрый",
+          "express_hint": "Минимум времени"
         },
         "intensity": {
           "light": "Легкая",

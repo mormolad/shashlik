@@ -13,13 +13,13 @@
 
 ## 2. Доменная логика (`src/lib/marinade`)
 
-- [ ] Тип `StyleType` содержит `'quick'` ([src/lib/marinade/types.ts](src/lib/marinade/types.ts) стр. 2), хотя `quick` принадлежит `MarinadeTimePreference`. Семантическое смешение — переименовать стиль (`'express'`/`'fast'`). `quick` - это тип маринада, типа классический, кавказкий и т.д. правь с учетом этого.
-- [ ] `MarinadeInput.nationalStyle` объявлен в типах, но нигде в генераторе не используется ([src/lib/marinade/generator.ts](src/lib/marinade/generator.ts)) — мёртвый параметр. убрать
-- [ ] Магические числа в [generator.ts](src/lib/marinade/generator.ts): `HIGH_DOSE_THRESHOLD = 4`, `30 * randomBetween(0.95, 1.05)` для лимонного сока, `targetCount = randomBetween(2, 4)`. Вынести в `rules.ts`.
-- [ ] `createSeededRandom(Date.now())` по умолчанию — детерминизма нет, при randomize рецепт может не меняться, если вызовы быстрые. Передавать seed явно.
-- [ ] Конфликт «`dill` + `lamb`» захардкожен в `hasHardConflict` отдельной строкой ([generator.ts](src/lib/marinade/generator.ts) стр. 30) и одновременно лежит в `HARD_CONFLICTS` — дублирование правил.
-- [ ] `MarinadeMeta.userRating` объявлен, но никем не заполняется и не читается.Удалить поле
-- [ ] Текст шагов рецепта (`steps`) собирается через шаблоны прямо в генераторе — не локализуется через i18n.
+- [x] `StyleType.quick` переименован в `'express'` — конфликт с `MarinadeTimePreference.quick` устранён.
+- [x] `MarinadeInput.nationalStyle` удалён.
+- [x] Магические числа вынесены в [src/lib/marinade/rules.ts](src/lib/marinade/rules.ts): `RANDOM_VARIANCE`, `LEMON_JUICE_BASE_GRAMS`, `LEMON_JUICE_VARIANCE`, `STYLE_SPICE_COUNT`, `HIGH_DOSE_THRESHOLD_GRAMS`, `MIN_SPICE_AMOUNT_GRAMS`, `SPICE_LEVEL_OFFSET`, `SPICE_LEVEL_DIVISOR`.
+- [x] Seed-fallback в `generateMarinadeRecipe` сменён с `Date.now()` на `Math.floor(Math.random() * 0x7fffffff)` — лучше дисперсия при быстрых повторных вызовах.
+- [x] Дублирующее правило «`dill` + `lamb`» убрано из `hasHardConflict` — оно уже описано в `HARD_CONFLICTS`.
+- [x] `MarinadeMeta.userRating` удалён.
+- [ ] Текст шагов рецепта (`steps`) и нот (`cutNote`/`alcoholNote`) пока остаётся захардкоженным RU — будет вынесен в i18n в коммите 9.
 
 ## 3. UI/UX слой (`src/sections`, `src/App.tsx`)
 

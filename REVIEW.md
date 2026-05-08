@@ -102,13 +102,20 @@
 
 ## 13. Тестирование
 
-- [ ] Тестов **0**. Минимум: добавить vitest и покрыть ядро `lib/marinade`:
-  - [ ] `generator.test.ts`: при одинаковом seed одинаковый рецепт.
-  - [ ] `generator.test.ts`: для каждого мяса присутствуют обязательные специи (`REQUIRED_SPICES_BY_MEAT`).
-  - [ ] `generator.test.ts`: жёсткие конфликты (`HARD_CONFLICTS`) никогда не появляются вместе.
-  - [ ] `generator.test.ts`: при `spiceLevel=0` черного перца нет в результате.
-  - [ ] `math.test.ts`: `roundToHalf`, `weightedPick`, `randomBetween` — граничные случаи.
-- [ ] Опционально: `@testing-library/react` для smoke-теста `RecipeForm`.
+- [x] Подключён `vitest` + [vitest.config.ts](vitest.config.ts), скрипты `test` / `test:watch` в `package.json`.
+- [x] CI прогоняет `npm test` рядом с `lint` / `typecheck` / `build`.
+- [x] Покрыт `math.ts`: `roundToHalf`, `randomBetween`, `weightedPick`, `createSeededRandom` — граничные случаи и детерминизм.
+- [x] Покрыт `generator.ts`:
+  - детерминизм при одном и том же seed,
+  - расхождение при разных seed,
+  - база (соль/лук) присутствует для каждого мяса,
+  - **`black_pepper` отсутствует при `spiceLevel = 0`** (тест поймал реальный баг в финальной сборке — поправлено в этом же коммите),
+  - обязательные специи для каждого мяса встречаются хотя бы на один из 5 сидов,
+  - `HARD_CONFLICTS` никогда не выходят вместе (50 сидов × 5 видов мяса),
+  - `dill` никогда не появляется при `meat = 'lamb'`,
+  - `lemon_juice` появляется только при `fat = 'fatty'`,
+  - все массы > 0, корректный `styleLabel`, ровно 4 шага.
+- [ ] Опционально: `@testing-library/react` для smoke-теста `RecipeForm` — пропустим до отдельного запроса.
 
 ---
 

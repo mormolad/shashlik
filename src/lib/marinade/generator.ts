@@ -104,9 +104,10 @@ export function generateMarinadeRecipe(input: MarinadeInput, seed?: number): Mar
   )
   const filteredSpices = filterConflicts(input, styleSpicesAndRequired, amountMap)
 
-  // 5. Финальная сборка
+  // 5. Финальная сборка (база попадает только если у неё есть амаунт —
+  //    например, black_pepper при spiceLevel=0 удалён из amountMap)
   const ingredientNames = [
-    ...BASE_INGREDIENTS.map((item) => item.name),
+    ...BASE_INGREDIENTS.filter((item) => amountMap.has(item.name)).map((item) => item.name),
     ...filteredSpices,
     ...(input.fat === 'fatty' ? ['lemon_juice'] : []),
   ]

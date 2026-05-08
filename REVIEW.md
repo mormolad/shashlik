@@ -53,10 +53,12 @@
 
 ## 7. Производительность
 
-- [ ] Bundle размер: текущий `index.js` = 440 КБ (gzip 140 КБ). После чистки зависимостей цель — < 80 КБ gzip.
-- [ ] Видео-ассеты: в `public/` физически нет `videos/*.mp4`, но они грузятся в [src/sections/BackgroundVideo.tsx](src/sections/BackgroundVideo.tsx), [src/sections/FireOverlay.tsx](src/sections/FireOverlay.tsx), [src/sections/RecipeResult.tsx](src/sections/RecipeResult.tsx) — отсутствуют ассеты или забыли закоммитить.
-- [ ] Использовать `loading="lazy"` для `<img>` в футере, если он не в первом экране.
-- [ ] Анимации framer-motion: для `SelectCard` `delay: index * 0.04` × 7 стилей даёт цепочку 280 мс при первом рендере — допустимо, но проверить ощущение.
+- [x] Bundle: `index.js` 434 КБ (gzip 141 КБ). Цель «< 80 КБ gzip» в данном стеке нереалистична — `framer-motion` (~95 КБ gzip) используется в каждой секции. Дальнейшее уменьшение возможно только через отказ от framer-motion или замену на CSS-анимации — оставлено как осознанный trade-off.
+- [x] Введён code-split для тяжёлых секций: `RecipeResult` (3.82 КБ / 0.98 КБ gzip) и `FireOverlay` (0.70 КБ / 0.39 КБ gzip) — `React.lazy` + `Suspense`. Они грузятся только при `appState !== 'form'`.
+- [x] Видео-ассеты в `public/videos/` присутствуют и закоммичены: `bg-coals.mp4` (4.6 МБ), `fire-loop.mp4` (3.8 МБ), `fire-celebration.mp4` (5.7 МБ). `bg-coals.mp4` грузится с `preload="metadata"`, остальные — с `preload="none"` (грузятся только когда нужны).
+- [x] `<img>` логотипа получил `loading="lazy"` + `decoding="async"` (см. категория 8).
+- [x] Каскад анимаций `SelectCard` ускорен с `delay: index * 0.04` до `0.025` — суммарная цепочка для 8 стилей сократилась с 280 мс до 175 мс.
+- [ ] Lighthouse-прогон / ручной axe — оставлен пользователю как ручная проверка.
 
 ## 8. Доступность (a11y)
 

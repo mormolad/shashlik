@@ -1,16 +1,20 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useCallback } from 'react';
+import { Suspense, lazy, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { DEFAULT_SELECTIONS } from './lib/marinade/defaults';
 import { generateMarinadeRecipe } from './lib/marinade/generator';
 import { GENERATION_DELAY_MS } from './lib/ui/timings';
 import BackgroundVideo from './sections/BackgroundVideo';
-import FireOverlay from './sections/FireOverlay';
 import RecipeForm from './sections/RecipeForm';
-import RecipeResult from './sections/RecipeResult';
 
 import './styles/index.css';
+
+// Лениво грузим секции, которые не нужны на первом кадре:
+// FireOverlay появляется только в состоянии 'generating',
+// RecipeResult — после генерации.
+const FireOverlay = lazy(() => import('./sections/FireOverlay'));
+const RecipeResult = lazy(() => import('./sections/RecipeResult'));
 
 import type { MarinadeInput, MarinadeRecipe } from './lib/marinade/types';
 import type { AppState } from './types/app';
@@ -102,12 +106,14 @@ function App() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             >
-              <RecipeResult
-                recipe={recipe}
-                onReset={handleReset}
-                onRandomize={handleRandomize}
-                isGenerating={appState === 'generating'}
-              />
+              <Suspense fallback={<div style={{ minHeight: '400px' }} />}>
+                <RecipeResult
+                  recipe={recipe}
+                  onReset={handleReset}
+                  onRandomize={handleRandomize}
+                  isGenerating={appState === 'generating'}
+                />
+              </Suspense>
             </motion.div>
           )}
         </AnimatePresence>
@@ -128,7 +134,9 @@ function App() {
         </footer>
       </main>
 
-      <FireOverlay visible={appState === 'generating'} />
+      <Suspense fallback={null}>
+        <FireOverlay visible={appState === 'generating'} />
+      </Suspense>
     </div>
   );
 }

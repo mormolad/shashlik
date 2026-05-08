@@ -1,73 +1,67 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+:root {
+  --void: #000000;
+  --carbon: #1a1816;
+  --ember: #d64e1e;
+  --ash: #e5e0d8;
+  --white: #ffffff;
+  --surface-dark: rgba(26, 24, 22, 0.85);
+  --border-glass: rgba(229, 224, 216, 0.06);
+  --border-active: rgba(214, 78, 30, 0.4);
 
-@layer base {
-  :root {
-    --void: #000000;
-    --carbon: #1a1816;
-    --ember: #d64e1e;
-    --ash: #e5e0d8;
-    --white: #ffffff;
-    --surface-dark: rgba(26, 24, 22, 0.85);
-    --border-glass: rgba(229, 224, 216, 0.06);
-    --border-active: rgba(214, 78, 30, 0.4);
+  --background: 0 0% 0%;
+  --foreground: 36 14% 88%;
+  --card: 30 6% 10%;
+  --card-foreground: 36 14% 88%;
+  --popover: 30 6% 10%;
+  --popover-foreground: 36 14% 88%;
+  --primary: 14 74% 48%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 30 6% 10%;
+  --secondary-foreground: 36 14% 88%;
+  --muted: 30 6% 10%;
+  --muted-foreground: 36 5% 53%;
+  --accent: 30 6% 10%;
+  --accent-foreground: 36 14% 88%;
+  --destructive: 14 74% 48%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 36 14% 88% / 0.06;
+  --input: 36 14% 88% / 0.06;
+  --ring: 14 74% 48%;
+  --sidebar-background: 30 6% 10%;
+  --sidebar-foreground: 36 14% 88%;
+  --sidebar-primary: 14 74% 48%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 30 6% 10%;
+  --sidebar-accent-foreground: 36 14% 88%;
+  --sidebar-border: 36 14% 88% / 0.06;
+  --sidebar-ring: 14 74% 48%;
+  --radius: 0.75rem;
 
-    --background: 0 0% 0%;
-    --foreground: 36 14% 88%;
-    --card: 30 6% 10%;
-    --card-foreground: 36 14% 88%;
-    --popover: 30 6% 10%;
-    --popover-foreground: 36 14% 88%;
-    --primary: 14 74% 48%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 30 6% 10%;
-    --secondary-foreground: 36 14% 88%;
-    --muted: 30 6% 10%;
-    --muted-foreground: 36 5% 53%;
-    --accent: 30 6% 10%;
-    --accent-foreground: 36 14% 88%;
-    --destructive: 14 74% 48%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 36 14% 88% / 0.06;
-    --input: 36 14% 88% / 0.06;
-    --ring: 14 74% 48%;
-    --sidebar-background: 30 6% 10%;
-    --sidebar-foreground: 36 14% 88%;
-    --sidebar-primary: 14 74% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 30 6% 10%;
-    --sidebar-accent-foreground: 36 14% 88%;
-    --sidebar-border: 36 14% 88% / 0.06;
-    --sidebar-ring: 14 74% 48%;
-    --radius: 0.75rem;
+  --overlay-strong: rgba(0, 0, 0, 0.7);
+  --overlay-medium: rgba(0, 0, 0, 0.6);
+  --overlay-soft: rgba(0, 0, 0, 0.2);
+  --surface-subtle: rgba(26, 24, 22, 0.3);
+  --surface-elevated: rgba(26, 24, 22, 0.95);
+  --ember-subtle: rgba(214, 78, 30, 0.08);
+  --ember-border-soft: rgba(214, 78, 30, 0.15);
+  --ember-shadow-strong: rgba(214, 78, 30, 0.35);
+  --ember-shadow-soft: rgba(214, 78, 30, 0.25);
+  --ash-text-muted: rgba(229, 224, 216, 0.5);
+  --ash-text-soft: rgba(229, 224, 216, 0.3);
+  --ash-text-strong: rgba(229, 224, 216, 0.7);
+  --ash-border-soft: rgba(229, 224, 216, 0.12);
+  --ash-border-subtle: rgba(229, 224, 216, 0.1);
+  --ash-border-medium: rgba(229, 224, 216, 0.2);
+  --ash-surface-subtle: rgba(229, 224, 216, 0.04);
+  --ember-hover: #e05522;
+}
 
-    --overlay-strong: rgba(0, 0, 0, 0.7);
-    --overlay-medium: rgba(0, 0, 0, 0.6);
-    --overlay-soft: rgba(0, 0, 0, 0.2);
-    --surface-subtle: rgba(26, 24, 22, 0.3);
-    --surface-elevated: rgba(26, 24, 22, 0.95);
-    --ember-subtle: rgba(214, 78, 30, 0.08);
-    --ember-border-soft: rgba(214, 78, 30, 0.15);
-    --ember-shadow-strong: rgba(214, 78, 30, 0.35);
-    --ember-shadow-soft: rgba(214, 78, 30, 0.25);
-    --ash-text-muted: rgba(229, 224, 216, 0.5);
-    --ash-text-soft: rgba(229, 224, 216, 0.3);
-    --ash-text-strong: rgba(229, 224, 216, 0.7);
-    --ash-border-soft: rgba(229, 224, 216, 0.12);
-    --ash-border-subtle: rgba(229, 224, 216, 0.1);
-    --ash-border-medium: rgba(229, 224, 216, 0.2);
-    --ash-surface-subtle: rgba(229, 224, 216, 0.04);
-    --ember-hover: #e05522;
-  }
-
-  body {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    font-weight: 400;
-    line-height: 1.5;
-    background-color: var(--void);
-    color: var(--ash);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  background-color: var(--void);
+  color: var(--ash);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

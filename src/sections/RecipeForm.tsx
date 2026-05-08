@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { memo } from 'react'
+import { memo, type ComponentType } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import {
@@ -20,7 +20,7 @@ import type { RecipeFormProps, SelectCardProps } from '../types/forms'
 
 // --- Card Option Data ---
 
-const meatOptions: { value: MeatType; Icon: React.FC }[] = [
+const meatOptions: { value: MeatType; Icon: ComponentType }[] = [
   { value: 'pork', Icon: MeatIcon },
   { value: 'chicken', Icon: ChickenIcon },
   { value: 'beef', Icon: BeefIcon },

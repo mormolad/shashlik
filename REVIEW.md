@@ -39,9 +39,9 @@
 
 ## 5. Типы TypeScript
 
-- [ ] `React.FC` в `meatOptions` ([src/sections/RecipeForm.tsx](src/sections/RecipeForm.tsx) стр. 21) — устаревший паттерн, лучше `() => JSX.Element`.
-- [ ] Типы пропсов ([src/types/forms.ts](src/types/forms.ts), [src/types/results.ts](src/types/results.ts), [src/types/overlays.ts](src/types/overlays.ts)) разнесены отдельно — ок, но проверить, что не дублируют доменные типы из `lib/marinade/types.ts`.
-- [ ] `defaultSelections` в [src/App.tsx](src/App.tsx) с захардкоженными литералами — продублировать как `DEFAULT_SELECTIONS` из доменного слоя.
+- [x] `React.FC` заменён на `ComponentType` (импорт из `react`) в [src/types/forms.ts](src/types/forms.ts) и в `meatOptions` [src/sections/RecipeForm.tsx](src/sections/RecipeForm.tsx).
+- [x] Типы пропсов в [src/types/](src/types/) проверены — дублирующих доменных типов из `lib/marinade/types.ts` нет, файлы только реэкспортируют через `import type`.
+- [x] Создан [src/lib/marinade/defaults.ts](src/lib/marinade/defaults.ts) с `DEFAULT_SELECTIONS`. `App.tsx` использует его в стартовом стейте и в `handleReset`.
 
 ## 6. Зависимости (`package.json`)
 

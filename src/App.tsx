@@ -6,25 +6,15 @@ import FireOverlay from './sections/FireOverlay';
 import RecipeForm from './sections/RecipeForm';
 import RecipeResult from './sections/RecipeResult';
 import './styles/index.css';
+import { DEFAULT_SELECTIONS } from './lib/marinade/defaults';
 import { generateMarinadeRecipe } from './lib/marinade/generator';
 
 import type { MarinadeInput, MarinadeRecipe } from './lib/marinade/types';
 import type { AppState } from './types/app';
 
-const defaultSelections: MarinadeInput = {
-  meat: 'pork',
-  style: 'classic',
-  intensity: 'medium',
-  fat: 'normal',
-  spiceLevel: 5,
-  cutType: 'cube',
-  alcoholPairing: 'none',
-  marinadeTime: 'standard',
-};
-
 function App() {
   const [selections, setSelections] =
-    useState<MarinadeInput>(defaultSelections);
+    useState<MarinadeInput>(DEFAULT_SELECTIONS);
   const [appState, setAppState] = useState<AppState>('form');
   const [recipe, setRecipe] = useState<MarinadeRecipe | null>(null);
 
@@ -45,7 +35,7 @@ function App() {
   }, [selections]);
 
   const handleReset = useCallback(() => {
-    setSelections(defaultSelections);
+    setSelections(DEFAULT_SELECTIONS);
     setRecipe(null);
     setAppState('form');
   }, []);

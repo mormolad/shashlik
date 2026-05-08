@@ -30,12 +30,12 @@
 - [ ] `FireOverlay` рендерит видео даже когда `visible=false` (через `AnimatePresence`) — оптимизировать через `mountOnEnter`.
 - [ ] Background-видео в [src/sections/BackgroundVideo.tsx](src/sections/BackgroundVideo.tsx) с `preload="auto"` грузит большой файл сразу — поставить `preload="metadata"` и/или ленивую загрузку.
 
-## 4. Стили (`src/App.css`, Tailwind, дизайн-токены)
+## 4. Стили (`src/styles/`, дизайн-токены)
 
-- [ ] [src/App.css](src/App.css) — 572 строки монолитом. Разнести по файлам: `form.css`, `recipe.css`, `footer.css`, `overlays.css`.
-- [ ] Дублирующийся блок `.footer-logo-img` в [src/App.css](src/App.css) — проверить, что финальная версия без дублей.
-- [ ] Tailwind подключён ([tailwind.config.js](tailwind.config.js)) и настроены токены через CSS-переменные, но в реальных компонентах используются только классы `.recipe-*`, `.form-*` — Tailwind фактически мёртв. Решить: либо удалить Tailwind, либо мигрировать sections на utility-first (как требует [.cursor/rules/design.mdc](.cursor/rules/design.mdc)).
-- [ ] Адаптивность ограничена `@media (max-width: 720px)` — нет промежуточных брейкпойнтов (планшет).
+- [x] Монолитный `src/App.css` (572 строки) разнесён на `src/styles/`: [layout.css](src/styles/layout.css), [overlays.css](src/styles/overlays.css), [form.css](src/styles/form.css), [recipe.css](src/styles/recipe.css), [footer.css](src/styles/footer.css), [responsive.css](src/styles/responsive.css). Барель — [src/styles/index.css](src/styles/index.css).
+- [x] Дублей `.footer-logo-img` в финальной версии нет.
+- [x] Tailwind полностью удалён в коммите 6.
+- [x] Добавлен промежуточный брейкпойнт `@media (max-width: 1024px)` (планшет): уменьшается max-width контейнера, шрифт заголовка и `card-grid-4` переключается на 3 колонки.
 
 ## 5. Типы TypeScript
 

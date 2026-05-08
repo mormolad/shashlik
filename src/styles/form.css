@@ -1,0 +1,239 @@
+.recipe-form {
+  text-align: center;
+}
+
+.form-title {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -2px;
+  line-height: 1.05;
+  margin-bottom: 8px;
+}
+
+.form-subtitle {
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--ash);
+  line-height: 1.3;
+  margin-bottom: 48px;
+}
+
+.form-section {
+  margin-bottom: 32px;
+}
+
+.section-label {
+  font-size: 25px;
+  font-weight: 600;
+  color: var(--ember);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+.card-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.card-grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.card-grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.select-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
+  padding: 16px 12px;
+  background: var(--carbon);
+  border: 1px solid var(--border-glass);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  color: var(--ash);
+}
+
+.select-card:hover {
+  background: var(--surface-elevated);
+  border-color: var(--ash-border-soft);
+  transform: translateY(-1px);
+}
+
+.select-card.selected {
+  background: var(--ember-subtle);
+  border-color: var(--border-active);
+  box-shadow: inset 0 0 0 1px var(--ember-border-soft);
+}
+
+.select-card-icon {
+  margin-bottom: 8px;
+  color: var(--ash);
+}
+
+.select-card.selected .select-card-icon {
+  color: var(--ember);
+}
+
+.select-card-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ash);
+  line-height: 1.4;
+}
+
+.select-card.selected .select-card-label {
+  color: var(--white);
+}
+
+.select-card-hint {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--ash-text-muted);
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+.select-card select,
+.select-card input[type='range'] {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.select-card select {
+  min-height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--ash-border-subtle);
+  background: transparent;
+  color: var(--ash);
+  padding: 0 10px;
+}
+
+.cta-button {
+  width: 100%;
+  min-height: 56px;
+  padding: 0 32px;
+  margin-top: 40px;
+  background: var(--ember);
+  border: none;
+  border-radius: 12px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cta-button:hover:not(:disabled) {
+  background: var(--ember-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px var(--ember-shadow-strong);
+}
+
+.cta-button:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 4px 16px var(--ember-shadow-soft);
+}
+
+.cta-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.spice-slider-container {
+  padding: 20px 16px;
+  background: var(--carbon);
+  border: 1px solid var(--border-glass);
+  border-radius: 12px;
+}
+
+.spice-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  background: var(--ash-border-soft);
+  border-radius: 2px;
+  outline: none;
+  margin: 12px 0;
+}
+
+.spice-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: var(--ember);
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid var(--white);
+  box-shadow: 0 0 10px var(--ember-shadow-soft);
+}
+
+.spice-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: var(--ember);
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid var(--white);
+  box-shadow: 0 0 10px var(--ember-shadow-soft);
+}
+
+.spice-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--ash-text-muted);
+  margin-top: 4px;
+}
+
+.spice-value {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ember);
+}
+
+.form-actions {
+  margin-top: 40px;
+}
+
+.generate-button {
+  width: 100%;
+  min-height: 56px;
+  padding: 0 32px;
+  background: var(--ember);
+  border: none;
+  border-radius: 12px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 20px var(--ember-shadow-soft);
+}
+
+.generate-button:hover {
+  background: var(--ember-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px var(--ember-shadow-strong);
+}
+
+.generate-button:active {
+  transform: translateY(0);
+}

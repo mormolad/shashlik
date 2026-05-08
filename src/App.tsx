@@ -5,7 +5,7 @@ import BackgroundVideo from './sections/BackgroundVideo';
 import FireOverlay from './sections/FireOverlay';
 import RecipeForm from './sections/RecipeForm';
 import RecipeResult from './sections/RecipeResult';
-import './App.css';
+import './styles/index.css';
 import { generateMarinadeRecipe } from './lib/marinade/generator';
 
 import type { MarinadeInput, MarinadeRecipe } from './lib/marinade/types';

@@ -1,0 +1,150 @@
+.recipe-result-card {
+  background: var(--carbon);
+  border: 1px solid var(--border-glass);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.recipe-fire-header {
+  position: relative;
+  width: 100%;
+  height: 120px;
+  overflow: hidden;
+}
+
+.recipe-fire-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.recipe-fire-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 30%, var(--carbon) 100%);
+  pointer-events: none;
+}
+
+.recipe-content {
+  padding: 24px 32px 40px;
+}
+
+.recipe-header {
+  margin-bottom: 28px;
+}
+
+.recipe-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+
+.recipe-subtitle {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--ash-text-muted);
+  line-height: 1.4;
+}
+
+.recipe-section {
+  margin-bottom: 28px;
+}
+
+.recipe-section-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ember);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 14px;
+}
+
+.recipe-ingredients {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.recipe-ingredient {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--ash);
+  line-height: 1.5;
+  padding: 5px 0;
+}
+
+.recipe-bullet {
+  color: var(--ember);
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.recipe-ingredient-name {
+  flex-shrink: 0;
+}
+
+.recipe-dash {
+  color: var(--ash-text-soft);
+  flex-shrink: 0;
+}
+
+.recipe-ingredient-amount {
+  color: var(--ash-text-strong);
+}
+
+.recipe-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: step;
+}
+
+.recipe-step {
+  display: flex;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--ash);
+  line-height: 1.6;
+  padding: 6px 0;
+}
+
+.recipe-step-number {
+  color: var(--ember);
+  font-weight: 600;
+  flex-shrink: 0;
+  min-width: 22px;
+}
+
+.recipe-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.recipe-btn-outline {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 24px;
+  background: transparent;
+  border: 1px solid var(--ash-border-subtle);
+  border-radius: 12px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ash);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.recipe-btn-outline:hover {
+  border-color: var(--ash-border-medium);
+  background: var(--ash-surface-subtle);
+}

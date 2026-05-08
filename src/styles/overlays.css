@@ -1,0 +1,22 @@
+.fire-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--overlay-strong);
+}
+
+.fire-video-wrapper {
+  width: 480px;
+  max-width: 90vw;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.fire-video {
+  width: 100%;
+  height: auto;
+  display: block;
+}

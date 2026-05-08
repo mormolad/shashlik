@@ -1,6 +1,7 @@
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router'
 import { I18nextProvider } from 'react-i18next'
+import { BrowserRouter } from 'react-router'
+
 import i18n from './i18n'
 import './index.css'
 import App from './App.tsx'

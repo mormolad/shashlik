@@ -14,6 +14,7 @@ import {
   STYLE_LABELS,
 } from './rules'
 import { COMPATIBILITY_TABLE, HARD_CONFLICTS, HIGH_DOSE_CONFLICTS, SPICE_DB, SPICE_LABELS_RU } from './spice-db'
+
 import type { MarinadeIngredient, MarinadeInput, MarinadeRecipe, SpiceDefinition } from './types'
 
 // Порог веса специи, после которого проверяются конфликты высоких доз

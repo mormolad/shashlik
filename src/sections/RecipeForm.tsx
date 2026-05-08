@@ -1,6 +1,7 @@
-import { memo } from 'react'
 import { motion } from 'framer-motion'
+import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
+
 import {
   MeatIcon,
   ChickenIcon,
@@ -8,6 +9,7 @@ import {
   LambIcon,
   TurkeyIcon,
 } from '../components/icons/MeatIcons'
+
 import type {
   FatType,
   IntensityType,

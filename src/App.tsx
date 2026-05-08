@@ -1,11 +1,13 @@
-import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useCallback } from 'react';
+
 import BackgroundVideo from './sections/BackgroundVideo';
+import FireOverlay from './sections/FireOverlay';
 import RecipeForm from './sections/RecipeForm';
 import RecipeResult from './sections/RecipeResult';
-import FireOverlay from './sections/FireOverlay';
 import './App.css';
 import { generateMarinadeRecipe } from './lib/marinade/generator';
+
 import type { MarinadeInput, MarinadeRecipe } from './lib/marinade/types';
 import type { AppState } from './types/app';
 

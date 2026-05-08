@@ -1,5 +1,6 @@
-import { memo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { memo } from 'react'
+
 import type { FireOverlayProps } from '../types/overlays'
 
 const FireOverlay = memo(function FireOverlay({ visible }: FireOverlayProps) {

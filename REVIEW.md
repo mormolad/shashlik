@@ -89,11 +89,13 @@
 
 ## 12. Билд и инфраструктура
 
-- [ ] Скрипты в `package.json`: нет `format` (prettier), `typecheck`, `test`. Добавить.
-- [ ] ESLint-конфиг ([eslint.config.js](eslint.config.js)) минимальный — добавить `eslint-plugin-jsx-a11y`, `eslint-plugin-import` (для порядка импортов), `no-console: warn`.
-- [ ] CI отсутствует — добавить GitHub Action: lint + typecheck + build.
-- [ ] [.gitignore](.gitignore) — после прошлой правки норм, проверить, что `dist/`, `.env`, `.cursor/` всё ещё в нём.
-- [ ] `vite.config.ts` `base: './'` — норм для статики; убедиться, что подходит для прод-хостинга.
+- [x] Скрипты в `package.json`: добавлены `typecheck`, `format`, `format:check`, `test`.
+- [x] ESLint-конфиг расширен: `eslint-plugin-jsx-a11y`, `eslint-plugin-import` (с `import/order`), `no-console: warn`.
+- [x] Добавлен Prettier (`.prettierrc.json`, `.prettierignore`).
+- [x] Добавлен CI workflow [.github/workflows/ci.yml](.github/workflows/ci.yml): Node 20, `npm ci`, `lint`, `typecheck`, `build`.
+- [x] [.gitignore](.gitignore): проверено, `dist/`, `.env`, `.cursor/` присутствуют.
+- [x] `vite.config.ts` `base: './'` оставлен — норм для статики.
+- [x] Удалён мёртвый хук `src/hooks/use-mobile.ts` (нигде не использовался + lint-ошибка `react-hooks/set-state-in-effect`).
 
 ## 13. Тестирование
 

@@ -1,13 +1,15 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { Suspense, lazy, useCallback, useState } from 'react'
+import { Suspense, lazy, useCallback, useEffect, useRef, useState } from 'react'
 
 import { DEFAULT_SELECTIONS } from '../lib/marinade/defaults'
-import { generateMarinadeRecipe } from '../lib/marinade/generator'
+import { generateMarinadeRecipe } from '../lib/marinade/generation/generator'
+import { appendRecipeToHistory } from '../lib/storage/recipeHistory'
 import { GENERATION_DELAY_MS } from '../lib/ui/timings'
 import RecipeForm from '../sections/RecipeForm'
 
 import type { MarinadeInput, MarinadeRecipe } from '../lib/marinade/types'
-import type { AppState } from '../types/app'
+
+type AppState = 'form' | 'generating' | 'result'
 
 const FireOverlay = lazy(() => import('../sections/FireOverlay'))
 const RecipeResult = lazy(() => import('../sections/RecipeResult'))
@@ -16,6 +18,19 @@ export default function HomePage() {
   const [selections, setSelections] = useState<MarinadeInput>(DEFAULT_SELECTIONS)
   const [appState, setAppState] = useState<AppState>('form')
   const [recipe, setRecipe] = useState<MarinadeRecipe | null>(null)
+  const generationTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const isMountedRef = useRef(true)
+
+  useEffect(() => {
+    isMountedRef.current = true
+    return () => {
+      isMountedRef.current = false
+      if (generationTimerRef.current !== null) {
+        clearTimeout(generationTimerRef.current)
+        generationTimerRef.current = null
+      }
+    }
+  }, [])
 
   const updateField = useCallback(
     <K extends keyof MarinadeInput>(category: K, value: MarinadeInput[K]) => {
@@ -49,8 +64,14 @@ export default function HomePage() {
     const nextRecipe = generateMarinadeRecipe(selections)
     setRecipe(nextRecipe)
     setAppState('generating')
-    setTimeout(() => {
+    if (generationTimerRef.current !== null) {
+      clearTimeout(generationTimerRef.current)
+    }
+    generationTimerRef.current = setTimeout(() => {
+      generationTimerRef.current = null
+      if (!isMountedRef.current) return
       setAppState('result')
+      appendRecipeToHistory(nextRecipe)
     }, GENERATION_DELAY_MS)
   }, [selections])
 
@@ -63,6 +84,7 @@ export default function HomePage() {
   const handleRandomize = useCallback(() => {
     const nextRecipe = generateMarinadeRecipe(selections)
     setRecipe(nextRecipe)
+    appendRecipeToHistory(nextRecipe)
   }, [selections])
 
   return (
@@ -95,7 +117,7 @@ export default function HomePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
           >
-            <Suspense fallback={<div style={{ minHeight: '400px' }} />}>
+            <Suspense fallback={<div className="lazy-route-placeholder" />}>
               <RecipeResult
                 recipe={recipe}
                 onReset={handleReset}

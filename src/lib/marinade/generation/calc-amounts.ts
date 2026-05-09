@@ -1,4 +1,5 @@
-import { type RandomGenerator, randomBetween, roundToHalf } from './math'
+import { meatAffinityFor } from '../ingredients/catalog'
+import { type RandomGenerator, randomBetween, roundToHalf } from '../math'
 import {
   AROMATIC_TYPES,
   BRIGHT_TYPES,
@@ -10,9 +11,9 @@ import {
   RANDOM_VARIANCE,
   SPICE_LEVEL_DIVISOR,
   SPICE_LEVEL_OFFSET,
-} from './rules'
+} from '../rules'
 
-import type { MarinadeInput, SpiceDefinition } from './types'
+import type { IngredientDefinition, MarinadeInput, SpiceType } from '../types'
 
 /**
  * Возвращает массу специи в граммах с учётом всех доменных коэффициентов:
@@ -20,7 +21,7 @@ import type { MarinadeInput, SpiceDefinition } from './types'
  */
 export function calcSpiceAmount(
   baseAmount: number,
-  spiceType: SpiceDefinition['type'],
+  spiceType: SpiceType,
   input: MarinadeInput,
   rng: RandomGenerator,
 ): number {
@@ -38,7 +39,7 @@ export function calcSpiceAmount(
 
 function getFatTypeBoost(
   fat: MarinadeInput['fat'],
-  spiceType: SpiceDefinition['type'],
+  spiceType: SpiceType,
 ): number {
   if (fat === 'lean' && AROMATIC_TYPES.includes(spiceType)) {
     return FAT_TYPE_BOOSTS.leanAromaticBoost
@@ -51,4 +52,19 @@ function getFatTypeBoost(
 
 function getSpiceLevelCoef(spiceLevel: number): number {
   return SPICE_LEVEL_OFFSET + spiceLevel / SPICE_LEVEL_DIVISOR
+}
+
+/**
+ * Граммы для позиции из каталога v2: середина dosePerKg × множитель стиля × meat affinity,
+ * далее общий calcSpiceAmount (интенсивность, жирность, острота для hot).
+ */
+export function calcCatalogIngredientGrams(
+  ing: IngredientDefinition,
+  input: MarinadeInput,
+  styleMultiplier: number,
+  rng: RandomGenerator,
+): number {
+  const mid = (ing.dosePerKg[0] + ing.dosePerKg[1]) / 2
+  const base = mid * styleMultiplier * meatAffinityFor(ing.id, input.meat)
+  return calcSpiceAmount(base, ing.calcType, input, rng)
 }

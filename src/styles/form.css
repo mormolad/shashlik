@@ -102,56 +102,6 @@
   margin-top: 2px;
 }
 
-.select-card select,
-.select-card input[type='range'] {
-  width: 100%;
-  margin-top: 8px;
-}
-
-.select-card select {
-  min-height: 36px;
-  border-radius: 10px;
-  border: 1px solid var(--ash-border-subtle);
-  background: transparent;
-  color: var(--ash);
-  padding: 0 10px;
-}
-
-.cta-button {
-  width: 100%;
-  min-height: 56px;
-  padding: 0 32px;
-  margin-top: 40px;
-  background: var(--ember);
-  border: none;
-  border-radius: 12px;
-  font-family: 'Inter', system-ui, sans-serif;
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--white);
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.cta-button:hover:not(:disabled) {
-  background: var(--ember-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px var(--ember-shadow-strong);
-}
-
-.cta-button:active:not(:disabled) {
-  transform: translateY(0);
-  box-shadow: 0 4px 16px var(--ember-shadow-soft);
-}
-
-.cta-button:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
-
 .spice-slider-container {
   padding: 20px 16px;
   background: var(--carbon);

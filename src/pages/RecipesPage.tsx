@@ -2,31 +2,11 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import type { MarinadeRecipe } from '../lib/marinade/types'
-
-const STORAGE_KEY = 'shashlik.recipeHistory.v1'
-
-interface StoredRecipe {
-  id: string
-  savedAt: number
-  recipe: MarinadeRecipe
-}
-
-function loadHistory(): StoredRecipe[] {
-  if (typeof window === 'undefined') return []
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY)
-    if (!raw) return []
-    const parsed: unknown = JSON.parse(raw)
-    return Array.isArray(parsed) ? (parsed as StoredRecipe[]) : []
-  } catch {
-    return []
-  }
-}
+import { loadRecipeHistory, type StoredRecipe } from '../lib/storage/recipeHistory'
 
 export default function RecipesPage() {
   const { t } = useTranslation()
-  const [history] = useState<StoredRecipe[]>(loadHistory)
+  const [history] = useState<StoredRecipe[]>(loadRecipeHistory)
 
   return (
     <motion.div

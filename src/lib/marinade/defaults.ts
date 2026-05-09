@@ -7,7 +7,4 @@ export const DEFAULT_SELECTIONS: MarinadeInput = {
   intensity: 'medium',
   fat: 'normal',
   spiceLevel: 5,
-  cutType: 'cube',
-  alcoholPairing: 'none',
-  marinadeTime: 'standard',
 }

@@ -39,7 +39,7 @@ Tailwind, shadcn/ui и `src/components/ui/` из проекта удалены. 
 
 - `layout.css` — каркас приложения и фоновые градиенты
 - `overlays.css` — fire-overlay (полноэкранный)
-- `form.css` — форма выбора параметров (`select-card`, `spice-slider`, `cta-button`, `generate-button`)
+- `form.css` — форма выбора параметров (`select-card`, `spice-slider`, `generate-button`)
 - `recipe.css` — карточка результата (`recipe-result-card`, `recipe-content`, `recipe-ingredients`, `recipe-steps`)
 - `footer.css` — подвал с логотипом
 - `responsive.css` — медиа-запросы (`max-width: 1024px` и `max-width: 720px`)
@@ -52,7 +52,7 @@ Tailwind, shadcn/ui и `src/components/ui/` из проекта удалены. 
 Структура:
 - `src/sections/*` — feature-секции (`RecipeForm`, `RecipeResult`, `BackgroundVideo`, `FireOverlay`).
 - `src/components/icons/*` — кастомные SVG-иконки мяса/посуды.
-- `src/lib/marinade/*` — доменное ядро (`generator`, `selectSpices`, `calcAmounts`, `notes`, `rules`, `spice-db`, `math`, `types`).
+- `src/lib/marinade/*` — доменное ядро: `generation/` (оркестратор, выбор, дозы), `ingredients/catalog.ts` (единственный источник правды по ингредиентам — читает `data/spices_database.json`), `conflicts/` (`hard.ts`, `high-dose.ts`), `styles/profiles`, плюс `rules`, `math`, `types`, `data/`.
 
 Когда из Figma приходит новый компонент:
 1. Сначала проверить, нет ли уже подходящего `select-card` / `recipe-*` / `form-*` блока.
@@ -92,7 +92,7 @@ Tailwind, shadcn/ui и `src/components/ui/` из проекта удалены. 
 ## 8) SOLID/KISS/DRY
 
 - Один CSS-файл = одна область ответственности (`form.css`, `recipe.css`, ...).
-- Доменное ядро `lib/marinade` разнесено по обязанностям: `selectSpices`, `calcAmounts`, `notes`, `generator` (только оркестрация).
+- Доменное ядро `lib/marinade` разнесено по обязанностям: `generation/select-ingredients`, `generation/calc-amounts`, `generation/generator` (только оркестрация).
 - Магические числа и доменные коэффициенты живут в `rules.ts` именованными константами.
 
 ## 9) Что не делать (anti-patterns для проекта)

@@ -1,0 +1,918 @@
+[
+  {
+    "id": "cumin",
+    "labels": { "ru": "зира", "en": "Cumin" },
+    "group": "dry_spices",
+    "calcType": "warm",
+    "baseAmount": 3,
+    "priority": 5,
+    "allowedStyles": ["caucasus", "turkish", "eastern"],
+    "compatibilityWeight": { "chicken": 0, "pork": 3, "beef": 4, "lamb": 5, "turkey": 0 },
+    "meatAffinity": { "lamb": 1.45, "beef": 1.2, "pork": 1.05 }
+  },
+  {
+    "id": "coriander",
+    "labels": { "ru": "кориандр", "en": "Coriander" },
+    "group": "dry_spices",
+    "calcType": "warm",
+    "baseAmount": 3,
+    "priority": 5,
+    "allowedStyles": ["classic", "caucasus", "eastern", "premium"],
+    "compatibilityWeight": { "chicken": 4, "pork": 4, "beef": 4, "lamb": 5, "turkey": 4 },
+    "meatAffinity": { "lamb": 1.35, "beef": 1.15, "pork": 1.1, "chicken": 1.05, "turkey": 1.05 }
+  },
+  {
+    "id": "paprika",
+    "labels": { "ru": "сладкая паприка", "en": "Paprika" },
+    "group": "dry_spices",
+    "calcType": "smoky",
+    "baseAmount": 4,
+    "priority": 4,
+    "allowedStyles": ["classic", "spicy", "express"],
+    "compatibilityWeight": { "chicken": 4, "pork": 5, "beef": 4, "lamb": 0, "turkey": 4 }
+  },
+  {
+    "id": "smoked_paprika",
+    "labels": { "ru": "копчёная паприка", "en": "Smoked Paprika" },
+    "group": "dry_spices",
+    "calcType": "smoky",
+    "baseAmount": 3,
+    "priority": 4,
+    "allowedStyles": ["spicy", "premium", "express"],
+    "compatibilityWeight": { "chicken": 3, "pork": 5, "beef": 4, "lamb": 2, "turkey": 0 }
+  },
+  {
+    "id": "garlic",
+    "labels": { "ru": "чеснок", "en": "Garlic" },
+    "group": "vegetables",
+    "calcType": "fresh",
+    "baseAmount": 5,
+    "priority": 5,
+    "allowedStyles": ["classic", "caucasus", "turkish", "spicy", "herbal", "express"],
+    "compatibilityWeight": { "chicken": 5, "pork": 5, "beef": 4, "lamb": 4, "turkey": 5 },
+    "meatAffinity": { "chicken": 1.15, "pork": 1.05, "beef": 1.0, "lamb": 1.1, "turkey": 1.2 }
+  },
+  {
+    "id": "basil",
+    "labels": { "ru": "базилик сухой", "en": "Basil" },
+    "group": "dry_spices",
+    "calcType": "herb",
+    "baseAmount": 2.5,
+    "priority": 3,
+    "allowedStyles": ["herbal", "premium", "turkish"],
+    "compatibilityWeight": { "chicken": 5, "pork": 3, "beef": 0, "lamb": 0, "turkey": 5 }
+  },
+  {
+    "id": "mint",
+    "labels": { "ru": "мята", "en": "Mint" },
+    "group": "fresh_herbs",
+    "calcType": "fresh",
+    "baseAmount": 2,
+    "priority": 3,
+    "allowedStyles": ["eastern", "turkish", "herbal"],
+    "compatibilityWeight": { "chicken": 1, "pork": 0, "beef": 0, "lamb": 5, "turkey": 0 },
+    "meatAffinity": { "chicken": 1.05, "lamb": 1.5 }
+  },
+  {
+    "id": "rosemary",
+    "labels": { "ru": "розмарин", "en": "Rosemary" },
+    "group": "dry_spices",
+    "calcType": "herb",
+    "baseAmount": 2,
+    "priority": 3,
+    "allowedStyles": ["premium", "classic"],
+    "compatibilityWeight": { "chicken": 0, "pork": 4, "beef": 4, "lamb": 4, "turkey": 3 },
+    "meatAffinity": { "pork": 1.2, "beef": 1.15, "lamb": 1.25, "turkey": 1.1 }
+  },
+  {
+    "id": "dill",
+    "labels": { "ru": "укроп сухой", "en": "Dill" },
+    "group": "dry_spices",
+    "calcType": "herb",
+    "baseAmount": 2.5,
+    "priority": 2,
+    "allowedStyles": ["classic", "herbal"],
+    "compatibilityWeight": { "chicken": 4, "pork": 3, "beef": 0, "lamb": 0, "turkey": 4 }
+  },
+  {
+    "id": "chili",
+    "labels": { "ru": "чили", "en": "Chili" },
+    "group": "dry_spices",
+    "calcType": "hot",
+    "baseAmount": 2,
+    "priority": 4,
+    "allowedStyles": ["spicy", "eastern"],
+    "compatibilityWeight": { "chicken": 4, "pork": 4, "beef": 4, "lamb": 4, "turkey": 4 }
+  },
+  {
+    "id": "sumac",
+    "labels": { "ru": "сумах", "en": "Sumac" },
+    "group": "dry_spices",
+    "calcType": "acid",
+    "baseAmount": 3,
+    "priority": 4,
+    "allowedStyles": ["caucasus", "eastern", "turkish"],
+    "compatibilityWeight": { "chicken": 4, "pork": 3, "beef": 4, "lamb": 5, "turkey": 0 },
+    "meatAffinity": { "chicken": 1.1, "pork": 1.0, "beef": 1.05, "lamb": 1.2 }
+  },
+  {
+    "id": "thyme",
+    "labels": { "ru": "тимьян", "en": "Thyme" },
+    "group": "dry_spices",
+    "calcType": "herb",
+    "baseAmount": 2,
+    "priority": 3,
+    "allowedStyles": ["premium", "classic", "herbal"],
+    "compatibilityWeight": { "chicken": 4, "pork": 4, "beef": 4, "lamb": 0, "turkey": 4 }
+  },
+  {
+    "id": "oregano",
+    "labels": { "ru": "орегано", "en": "Oregano" },
+    "group": "dry_spices",
+    "calcType": "herb",
+    "baseAmount": 2,
+    "priority": 3,
+    "allowedStyles": ["classic", "turkish", "herbal"],
+    "compatibilityWeight": { "chicken": 4, "pork": 4, "beef": 3, "lamb": 0, "turkey": 4 }
+  },
+  {
+    "id": "turmeric",
+    "labels": { "ru": "куркума", "en": "Turmeric" },
+    "group": "dry_spices",
+    "calcType": "warm",
+    "baseAmount": 2,
+    "priority": 2,
+    "allowedStyles": ["eastern", "spicy"],
+    "compatibilityWeight": { "chicken": 4, "pork": 3, "beef": 0, "lamb": 0, "turkey": 4 }
+  },
+  {
+    "id": "mustard_seed",
+    "labels": { "ru": "горчица в зёрнах", "en": "Mustard Seed" },
+    "group": "dry_spices",
+    "calcType": "warm",
+    "baseAmount": 2.5,
+    "priority": 2,
+    "allowedStyles": ["classic", "premium"],
+    "compatibilityWeight": { "chicken": 3, "pork": 4, "beef": 4, "lamb": 0, "turkey": 0 }
+  },
+  {
+    "id": "curry",
+    "labels": { "ru": "карри", "en": "Curry" },
+    "group": "dry_spices",
+    "calcType": "warm",
+    "baseAmount": 3,
+    "priority": 2,
+    "allowedStyles": ["eastern", "spicy"],
+    "compatibilityWeight": { "chicken": 4, "pork": 2, "beef": 0, "lamb": 0, "turkey": 4 }
+  },
+  {
+    "id": "lemon_zest",
+    "labels": { "ru": "лимонная цедра", "en": "Lemon Zest" },
+    "group": "dry_spices",
+    "calcType": "acid",
+    "baseAmount": 4,
+    "priority": 2,
+    "allowedStyles": ["premium", "herbal", "turkish"],
+    "compatibilityWeight": { "chicken": 4, "pork": 3, "beef": 0, "lamb": 0, "turkey": 4 }
+  },
+  {
+    "id": "khmeli_suneli",
+    "labels": { "ru": "хмели-сунели", "en": "Khmeli Suneli" },
+    "group": "dry_spices",
+    "calcType": "warm",
+    "baseAmount": 4,
+    "priority": 5,
+    "allowedStyles": ["caucasus", "eastern"],
+    "compatibilityWeight": { "chicken": 4, "pork": 4, "beef": 4, "lamb": 4, "turkey": 4 }
+  },
+  {
+    "id": "utskho_suneli",
+    "labels": { "ru": "уцхо-сунели", "en": "Utskho Suneli" },
+    "group": "dry_spices",
+    "calcType": "warm",
+    "baseAmount": 3,
+    "priority": 5,
+    "allowedStyles": ["caucasus", "eastern"],
+    "compatibilityWeight": { "chicken": 4, "pork": 3, "beef": 4, "lamb": 5, "turkey": 4 }
+  },
+
+  {
+    "id": "white_pepper",
+    "labels": { "ru": "белый перец", "en": "White pepper" },
+    "group": "dry_spices",
+    "calcType": "hot",
+    "baseAmount": 2,
+    "priority": 3,
+    "allowedStyles": ["classic", "premium", "herbal"],
+    "compatibilityWeight": { "chicken": 4, "pork": 3, "beef": 3, "lamb": 2, "turkey": 4 }
+  },
+  {
+    "id": "allspice",
+    "labels": { "ru": "душистый перец", "en": "Allspice" },
+    "group": "dry_spices",
+    "calcType": "warm",
+    "baseAmount": 2.5,
+    "priority": 3,
+    "allowedStyles": ["classic", "eastern", "premium"],
+    "compatibilityWeight": { "chicken": 3, "pork": 3, "beef": 4, "lamb": 4, "turkey": 3 }
+  },
+  {
+    "id": "cardamom",
+    "labels": { "ru": "кардамон", "en": "Cardamom" },
+    "group": "dry_spices",
+    "calcType": "warm",
+    "baseAmount": 1.5,
+    "priority": 3,
+    "allowedStyles": ["eastern", "turkish", "premium"],
+    "compatibilityWeight": { "chicken": 3, "pork": 2, "beef": 3, "lamb": 5, "turkey": 3 },
+    "meatAffinity": { "lamb": 1.2 }
+  },
+  {
+    "id": "clove",
+    "labels": { "ru": "гвоздика", "en": "Clove" },
+    "group": "dry_spices",
+    "calcType": "warm",
+    "baseAmount": 1,
+    "priority": 2,
+    "allowedStyles": ["eastern", "premium"],
+    "compatibilityWeight": { "chicken": 2, "pork": 3, "beef": 3, "lamb": 3, "turkey": 2 }
+  },
+  {
+    "id": "nutmeg",
+    "labels": { "ru": "мускатный орех", "en": "Nutmeg" },
+    "group": "dry_spices",
+    "calcType": "warm",
+    "baseAmount": 1.5,
+    "priority": 2,
+    "allowedStyles": ["eastern", "premium"],
+    "compatibilityWeight": { "chicken": 3, "pork": 4, "beef": 4, "lamb": 3, "turkey": 3 }
+  },
+  {
+    "id": "dry_ginger",
+    "labels": { "ru": "имбирь сухой", "en": "Dry ginger" },
+    "group": "dry_spices",
+    "calcType": "warm",
+    "baseAmount": 2,
+    "priority": 3,
+    "allowedStyles": ["eastern", "spicy", "premium"],
+    "compatibilityWeight": { "chicken": 5, "pork": 4, "beef": 3, "lamb": 2, "turkey": 5 }
+  },
+  {
+    "id": "saffron",
+    "labels": { "ru": "шафран", "en": "Saffron" },
+    "group": "dry_spices",
+    "calcType": "warm",
+    "baseAmount": 0.5,
+    "priority": 2,
+    "allowedStyles": ["premium", "eastern", "turkish"],
+    "compatibilityWeight": { "chicken": 5, "pork": 1, "beef": 2, "lamb": 5, "turkey": 4 },
+    "meatAffinity": { "chicken": 1.2, "lamb": 1.3 }
+  },
+  {
+    "id": "barberry",
+    "labels": { "ru": "барбарис", "en": "Barberry" },
+    "group": "dry_spices",
+    "calcType": "acid",
+    "baseAmount": 3,
+    "priority": 3,
+    "allowedStyles": ["caucasus", "eastern", "premium"],
+    "compatibilityWeight": { "chicken": 3, "pork": 2, "beef": 3, "lamb": 5, "turkey": 3 }
+  },
+  {
+    "id": "fennel",
+    "labels": { "ru": "фенхель", "en": "Fennel" },
+    "group": "dry_spices",
+    "calcType": "warm",
+    "baseAmount": 2,
+    "priority": 3,
+    "allowedStyles": ["herbal", "premium", "classic"],
+    "compatibilityWeight": { "chicken": 3, "pork": 5, "beef": 3, "lamb": 2, "turkey": 3 }
+  },
+  {
+    "id": "anise",
+    "labels": { "ru": "анис", "en": "Anise" },
+    "group": "dry_spices",
+    "calcType": "warm",
+    "baseAmount": 1.5,
+    "priority": 2,
+    "allowedStyles": ["eastern", "premium"],
+    "compatibilityWeight": { "chicken": 3, "pork": 4, "beef": 2, "lamb": 3, "turkey": 3 }
+  },
+  {
+    "id": "pink_pepper",
+    "labels": { "ru": "розовый перец", "en": "Pink pepper" },
+    "group": "dry_spices",
+    "calcType": "hot",
+    "baseAmount": 1.5,
+    "priority": 2,
+    "allowedStyles": ["premium", "herbal"],
+    "compatibilityWeight": { "chicken": 5, "pork": 3, "beef": 3, "lamb": 2, "turkey": 5 }
+  },
+  {
+    "id": "bay_leaf",
+    "labels": { "ru": "лавровый лист", "en": "Bay leaf" },
+    "group": "dry_spices",
+    "calcType": "herb",
+    "baseAmount": 1,
+    "priority": 3,
+    "allowedStyles": ["classic", "caucasus", "eastern"],
+    "compatibilityWeight": { "chicken": 4, "pork": 5, "beef": 5, "lamb": 3, "turkey": 4 }
+  },
+  {
+    "id": "caraway",
+    "labels": { "ru": "тмин", "en": "Caraway" },
+    "group": "dry_spices",
+    "calcType": "warm",
+    "baseAmount": 2,
+    "priority": 2,
+    "allowedStyles": ["classic", "herbal", "eastern"],
+    "compatibilityWeight": { "chicken": 2, "pork": 5, "beef": 3, "lamb": 3, "turkey": 2 }
+  },
+  {
+    "id": "fenugreek",
+    "labels": { "ru": "пажитник", "en": "Fenugreek" },
+    "group": "dry_spices",
+    "calcType": "warm",
+    "baseAmount": 2,
+    "priority": 2,
+    "allowedStyles": ["caucasus", "eastern"],
+    "compatibilityWeight": { "chicken": 3, "pork": 2, "beef": 3, "lamb": 5, "turkey": 3 }
+  },
+  {
+    "id": "marjoram",
+    "labels": { "ru": "майоран", "en": "Marjoram" },
+    "group": "dry_spices",
+    "calcType": "herb",
+    "baseAmount": 2,
+    "priority": 3,
+    "allowedStyles": ["classic", "premium", "herbal"],
+    "compatibilityWeight": { "chicken": 4, "pork": 4, "beef": 3, "lamb": 3, "turkey": 4 }
+  },
+  {
+    "id": "tarragon",
+    "labels": { "ru": "эстрагон", "en": "Tarragon" },
+    "group": "dry_spices",
+    "calcType": "herb",
+    "baseAmount": 2,
+    "priority": 3,
+    "allowedStyles": ["premium", "herbal"],
+    "compatibilityWeight": { "chicken": 5, "pork": 3, "beef": 3, "lamb": 2, "turkey": 5 }
+  },
+  {
+    "id": "sage",
+    "labels": { "ru": "шалфей", "en": "Sage" },
+    "group": "dry_spices",
+    "calcType": "herb",
+    "baseAmount": 1.5,
+    "priority": 3,
+    "allowedStyles": ["premium", "classic", "herbal"],
+    "compatibilityWeight": { "chicken": 4, "pork": 5, "beef": 3, "lamb": 3, "turkey": 5 }
+  },
+  {
+    "id": "dry_parsley",
+    "labels": { "ru": "петрушка сухая", "en": "Dry parsley" },
+    "group": "dry_spices",
+    "calcType": "herb",
+    "baseAmount": 2,
+    "priority": 2,
+    "allowedStyles": ["classic", "herbal", "express"],
+    "compatibilityWeight": { "chicken": 4, "pork": 4, "beef": 3, "lamb": 2, "turkey": 4 }
+  },
+
+  {
+    "id": "cilantro",
+    "labels": { "ru": "кинза", "en": "Cilantro" },
+    "group": "fresh_herbs",
+    "calcType": "herb",
+    "baseAmount": 5,
+    "priority": 4,
+    "allowedStyles": ["caucasus", "herbal", "eastern"],
+    "compatibilityWeight": { "chicken": 5, "pork": 3, "beef": 3, "lamb": 5, "turkey": 4 }
+  },
+  {
+    "id": "parsley",
+    "labels": { "ru": "петрушка", "en": "Parsley" },
+    "group": "fresh_herbs",
+    "calcType": "herb",
+    "baseAmount": 5,
+    "priority": 4,
+    "allowedStyles": ["classic", "herbal", "premium"],
+    "compatibilityWeight": { "chicken": 5, "pork": 4, "beef": 4, "lamb": 3, "turkey": 5 }
+  },
+  {
+    "id": "green_onion",
+    "labels": { "ru": "зелёный лук", "en": "Green onion" },
+    "group": "fresh_herbs",
+    "calcType": "fresh",
+    "baseAmount": 10,
+    "priority": 3,
+    "allowedStyles": ["eastern", "herbal", "classic"],
+    "compatibilityWeight": { "chicken": 5, "pork": 4, "beef": 4, "lamb": 3, "turkey": 5 }
+  },
+  {
+    "id": "dill_fresh",
+    "labels": { "ru": "укроп свежий", "en": "Fresh dill" },
+    "group": "fresh_herbs",
+    "calcType": "herb",
+    "baseAmount": 5,
+    "priority": 3,
+    "allowedStyles": ["classic", "herbal"],
+    "compatibilityWeight": { "chicken": 5, "pork": 4, "beef": 0, "lamb": 0, "turkey": 5 }
+  },
+  {
+    "id": "basil_fresh",
+    "labels": { "ru": "базилик свежий", "en": "Fresh basil" },
+    "group": "fresh_herbs",
+    "calcType": "herb",
+    "baseAmount": 5,
+    "priority": 3,
+    "allowedStyles": ["herbal", "premium", "turkish"],
+    "compatibilityWeight": { "chicken": 5, "pork": 4, "beef": 2, "lamb": 2, "turkey": 5 }
+  },
+
+  {
+    "id": "red_onion",
+    "labels": { "ru": "лук красный", "en": "Red onion" },
+    "group": "vegetables",
+    "calcType": "fresh",
+    "baseAmount": 100,
+    "priority": 3,
+    "allowedStyles": ["classic", "premium", "herbal"],
+    "compatibilityWeight": { "chicken": 3, "pork": 4, "beef": 4, "lamb": 4, "turkey": 3 }
+  },
+  {
+    "id": "bell_pepper",
+    "labels": { "ru": "перец болгарский", "en": "Bell pepper" },
+    "group": "vegetables",
+    "calcType": "fresh",
+    "baseAmount": 50,
+    "priority": 2,
+    "allowedStyles": ["classic", "spicy", "herbal"],
+    "compatibilityWeight": { "chicken": 4, "pork": 4, "beef": 3, "lamb": 1, "turkey": 4 }
+  },
+  {
+    "id": "chili_fresh",
+    "labels": { "ru": "перец чили свежий", "en": "Fresh chili" },
+    "group": "vegetables",
+    "calcType": "hot",
+    "baseAmount": 8,
+    "priority": 3,
+    "allowedStyles": ["spicy", "eastern"],
+    "compatibilityWeight": { "chicken": 4, "pork": 4, "beef": 3, "lamb": 3, "turkey": 4 }
+  },
+  {
+    "id": "tomato",
+    "labels": { "ru": "томат", "en": "Tomato" },
+    "group": "vegetables",
+    "calcType": "fresh",
+    "baseAmount": 80,
+    "priority": 2,
+    "allowedStyles": ["classic", "spicy", "herbal"],
+    "compatibilityWeight": { "chicken": 3, "pork": 4, "beef": 4, "lamb": 2, "turkey": 3 }
+  },
+  {
+    "id": "ginger_fresh",
+    "labels": { "ru": "имбирь свежий", "en": "Fresh ginger" },
+    "group": "vegetables",
+    "calcType": "warm",
+    "baseAmount": 5,
+    "priority": 3,
+    "allowedStyles": ["eastern", "spicy", "premium"],
+    "compatibilityWeight": { "chicken": 5, "pork": 4, "beef": 3, "lamb": 2, "turkey": 5 }
+  },
+
+  {
+    "id": "yogurt",
+    "labels": { "ru": "йогурт", "en": "Yogurt" },
+    "group": "liquids",
+    "calcType": "fresh",
+    "baseAmount": 80,
+    "priority": 3,
+    "allowedStyles": ["eastern", "turkish", "herbal", "premium"],
+    "compatibilityWeight": { "chicken": 4, "pork": 3, "beef": 3, "lamb": 4, "turkey": 4 }
+  },
+  {
+    "id": "kefir",
+    "labels": { "ru": "кефир", "en": "Kefir" },
+    "group": "liquids",
+    "calcType": "fresh",
+    "baseAmount": 80,
+    "priority": 3,
+    "allowedStyles": ["caucasus", "classic", "herbal"],
+    "compatibilityWeight": { "chicken": 4, "pork": 3, "beef": 3, "lamb": 3, "turkey": 4 }
+  },
+  {
+    "id": "ayran",
+    "labels": { "ru": "айран", "en": "Ayran" },
+    "group": "liquids",
+    "calcType": "fresh",
+    "baseAmount": 80,
+    "priority": 3,
+    "allowedStyles": ["caucasus", "turkish", "eastern"],
+    "compatibilityWeight": { "chicken": 4, "pork": 2, "beef": 2, "lamb": 5, "turkey": 3 }
+  },
+  {
+    "id": "sour_cream",
+    "labels": { "ru": "сметана", "en": "Sour cream" },
+    "group": "liquids",
+    "calcType": "fresh",
+    "baseAmount": 60,
+    "priority": 2,
+    "allowedStyles": ["classic", "herbal"],
+    "compatibilityWeight": { "chicken": 5, "pork": 4, "beef": 3, "lamb": 2, "turkey": 4 }
+  },
+  {
+    "id": "mayonnaise",
+    "labels": { "ru": "майонез", "en": "Mayonnaise" },
+    "group": "liquids",
+    "calcType": "fat",
+    "baseAmount": 60,
+    "priority": 2,
+    "allowedStyles": ["classic", "express"],
+    "compatibilityWeight": { "chicken": 5, "pork": 4, "beef": 3, "lamb": 1, "turkey": 4 }
+  },
+  {
+    "id": "olive_oil",
+    "labels": { "ru": "оливковое масло", "en": "Olive oil" },
+    "group": "liquids",
+    "calcType": "fat",
+    "baseAmount": 30,
+    "priority": 4,
+    "allowedStyles": ["classic", "premium", "herbal", "turkish", "express"],
+    "compatibilityWeight": { "chicken": 5, "pork": 4, "beef": 4, "lamb": 5, "turkey": 5 }
+  },
+  {
+    "id": "sesame_oil",
+    "labels": { "ru": "кунжутное масло", "en": "Sesame oil" },
+    "group": "liquids",
+    "calcType": "fat",
+    "baseAmount": 10,
+    "priority": 2,
+    "allowedStyles": ["eastern", "spicy"],
+    "compatibilityWeight": { "chicken": 5, "pork": 4, "beef": 3, "lamb": 2, "turkey": 4 }
+  },
+  {
+    "id": "mustard_oil",
+    "labels": { "ru": "горчичное масло", "en": "Mustard oil" },
+    "group": "liquids",
+    "calcType": "fat",
+    "baseAmount": 15,
+    "priority": 2,
+    "allowedStyles": ["classic", "eastern"],
+    "compatibilityWeight": { "chicken": 4, "pork": 4, "beef": 3, "lamb": 2, "turkey": 3 }
+  },
+
+  {
+    "id": "lemon_juice",
+    "labels": { "ru": "лимонный сок", "en": "Lemon juice" },
+    "group": "acids",
+    "calcType": "acid",
+    "baseAmount": 30,
+    "priority": 4,
+    "allowedStyles": ["classic", "caucasus", "turkish", "eastern", "spicy", "premium", "herbal", "express"],
+    "compatibilityWeight": { "chicken": 4, "pork": 3, "beef": 3, "lamb": 4, "turkey": 4 }
+  },
+  {
+    "id": "lime_juice",
+    "labels": { "ru": "лаймовый сок", "en": "Lime juice" },
+    "group": "acids",
+    "calcType": "acid",
+    "baseAmount": 25,
+    "priority": 2,
+    "allowedStyles": ["eastern", "spicy", "herbal", "express"],
+    "compatibilityWeight": { "chicken": 5, "pork": 3, "beef": 2, "lamb": 3, "turkey": 5 }
+  },
+  {
+    "id": "wine_vinegar",
+    "labels": { "ru": "винный уксус", "en": "Wine vinegar" },
+    "group": "acids",
+    "calcType": "acid",
+    "baseAmount": 15,
+    "priority": 3,
+    "allowedStyles": ["classic", "premium", "caucasus"],
+    "compatibilityWeight": { "chicken": 3, "pork": 4, "beef": 5, "lamb": 4, "turkey": 3 }
+  },
+  {
+    "id": "balsamic",
+    "labels": { "ru": "бальзамический уксус", "en": "Balsamic vinegar" },
+    "group": "acids",
+    "calcType": "acid",
+    "baseAmount": 12,
+    "priority": 2,
+    "allowedStyles": ["premium", "classic"],
+    "compatibilityWeight": { "chicken": 4, "pork": 4, "beef": 5, "lamb": 2, "turkey": 4 }
+  },
+  {
+    "id": "rice_vinegar",
+    "labels": { "ru": "рисовый уксус", "en": "Rice vinegar" },
+    "group": "acids",
+    "calcType": "acid",
+    "baseAmount": 15,
+    "priority": 2,
+    "allowedStyles": ["eastern", "spicy"],
+    "compatibilityWeight": { "chicken": 5, "pork": 4, "beef": 3, "lamb": 1, "turkey": 4 }
+  },
+  {
+    "id": "pomegranate_juice",
+    "labels": { "ru": "гранатовый сок", "en": "Pomegranate juice" },
+    "group": "acids",
+    "calcType": "acid",
+    "baseAmount": 30,
+    "priority": 3,
+    "allowedStyles": ["caucasus", "eastern", "premium"],
+    "compatibilityWeight": { "chicken": 4, "pork": 3, "beef": 4, "lamb": 5, "turkey": 3 }
+  },
+  {
+    "id": "orange_juice",
+    "labels": { "ru": "апельсиновый сок", "en": "Orange juice" },
+    "group": "acids",
+    "calcType": "acid",
+    "baseAmount": 40,
+    "priority": 2,
+    "allowedStyles": ["eastern", "herbal", "premium"],
+    "compatibilityWeight": { "chicken": 5, "pork": 5, "beef": 2, "lamb": 1, "turkey": 4 }
+  },
+  {
+    "id": "tomato_juice",
+    "labels": { "ru": "томатный сок", "en": "Tomato juice" },
+    "group": "acids",
+    "calcType": "acid",
+    "baseAmount": 50,
+    "priority": 2,
+    "allowedStyles": ["classic", "spicy", "express"],
+    "compatibilityWeight": { "chicken": 3, "pork": 4, "beef": 4, "lamb": 2, "turkey": 3 }
+  },
+  {
+    "id": "apple_cider_vinegar",
+    "labels": { "ru": "яблочный уксус", "en": "Apple cider vinegar" },
+    "group": "acids",
+    "calcType": "acid",
+    "baseAmount": 15,
+    "priority": 3,
+    "allowedStyles": ["classic", "herbal", "premium"],
+    "compatibilityWeight": { "chicken": 3, "pork": 4, "beef": 3, "lamb": 0, "turkey": 3 }
+  },
+
+  {
+    "id": "honey",
+    "labels": { "ru": "мёд", "en": "Honey" },
+    "group": "sweeteners",
+    "calcType": "sweet",
+    "baseAmount": 15,
+    "priority": 3,
+    "allowedStyles": ["eastern", "spicy", "premium"],
+    "compatibilityWeight": { "chicken": 5, "pork": 5, "beef": 3, "lamb": 3, "turkey": 5 }
+  },
+  {
+    "id": "brown_sugar",
+    "labels": { "ru": "коричневый сахар", "en": "Brown sugar" },
+    "group": "sweeteners",
+    "calcType": "sweet",
+    "baseAmount": 10,
+    "priority": 2,
+    "allowedStyles": ["spicy", "classic", "eastern"],
+    "compatibilityWeight": { "chicken": 4, "pork": 5, "beef": 3, "lamb": 1, "turkey": 4 }
+  },
+  {
+    "id": "maple_syrup",
+    "labels": { "ru": "кленовый сироп", "en": "Maple syrup" },
+    "group": "sweeteners",
+    "calcType": "sweet",
+    "baseAmount": 15,
+    "priority": 2,
+    "allowedStyles": ["premium", "classic"],
+    "compatibilityWeight": { "chicken": 4, "pork": 5, "beef": 3, "lamb": 1, "turkey": 4 }
+  },
+
+  {
+    "id": "soy_sauce",
+    "labels": { "ru": "соевый соус", "en": "Soy sauce" },
+    "group": "sauces",
+    "calcType": "umami",
+    "baseAmount": 25,
+    "priority": 3,
+    "allowedStyles": ["eastern", "spicy", "classic"],
+    "compatibilityWeight": { "chicken": 4, "pork": 4, "beef": 4, "lamb": 0, "turkey": 4 }
+  },
+  {
+    "id": "teriyaki",
+    "labels": { "ru": "терияки", "en": "Teriyaki" },
+    "group": "sauces",
+    "calcType": "umami",
+    "baseAmount": 25,
+    "priority": 3,
+    "allowedStyles": ["eastern", "spicy", "express"],
+    "compatibilityWeight": { "chicken": 5, "pork": 5, "beef": 4, "lamb": 1, "turkey": 4 }
+  },
+  {
+    "id": "oyster_sauce",
+    "labels": { "ru": "устричный соус", "en": "Oyster sauce" },
+    "group": "sauces",
+    "calcType": "umami",
+    "baseAmount": 15,
+    "priority": 3,
+    "allowedStyles": ["eastern", "spicy"],
+    "compatibilityWeight": { "chicken": 4, "pork": 4, "beef": 5, "lamb": 1, "turkey": 3 }
+  },
+  {
+    "id": "fish_sauce",
+    "labels": { "ru": "рыбный соус", "en": "Fish sauce" },
+    "group": "sauces",
+    "calcType": "umami",
+    "baseAmount": 10,
+    "priority": 3,
+    "allowedStyles": ["eastern", "spicy"],
+    "compatibilityWeight": { "chicken": 4, "pork": 4, "beef": 3, "lamb": 1, "turkey": 3 }
+  },
+  {
+    "id": "worcestershire",
+    "labels": { "ru": "ворчестер", "en": "Worcestershire" },
+    "group": "sauces",
+    "calcType": "umami",
+    "baseAmount": 8,
+    "priority": 3,
+    "allowedStyles": ["classic", "premium"],
+    "compatibilityWeight": { "chicken": 3, "pork": 4, "beef": 5, "lamb": 3, "turkey": 3 }
+  },
+  {
+    "id": "tomato_paste",
+    "labels": { "ru": "томатная паста", "en": "Tomato paste" },
+    "group": "sauces",
+    "calcType": "umami",
+    "baseAmount": 25,
+    "priority": 3,
+    "allowedStyles": ["classic", "spicy", "premium"],
+    "compatibilityWeight": { "chicken": 3, "pork": 4, "beef": 4, "lamb": 3, "turkey": 3 }
+  },
+  {
+    "id": "mustard",
+    "labels": { "ru": "горчица", "en": "Mustard" },
+    "group": "sauces",
+    "calcType": "warm",
+    "baseAmount": 15,
+    "priority": 3,
+    "allowedStyles": ["classic", "premium"],
+    "compatibilityWeight": { "chicken": 3, "pork": 5, "beef": 5, "lamb": 2, "turkey": 3 }
+  },
+  {
+    "id": "dijon_mustard",
+    "labels": { "ru": "дижонская горчица", "en": "Dijon mustard" },
+    "group": "sauces",
+    "calcType": "warm",
+    "baseAmount": 12,
+    "priority": 3,
+    "allowedStyles": ["premium", "classic", "herbal"],
+    "compatibilityWeight": { "chicken": 4, "pork": 5, "beef": 5, "lamb": 2, "turkey": 4 }
+  },
+  {
+    "id": "adjika",
+    "labels": { "ru": "аджика", "en": "Adjika" },
+    "group": "sauces",
+    "calcType": "hot",
+    "baseAmount": 15,
+    "priority": 4,
+    "allowedStyles": ["caucasus", "spicy"],
+    "compatibilityWeight": { "chicken": 4, "pork": 5, "beef": 5, "lamb": 5, "turkey": 3 }
+  },
+  {
+    "id": "satsebeli",
+    "labels": { "ru": "сацебели", "en": "Satsebeli" },
+    "group": "sauces",
+    "calcType": "hot",
+    "baseAmount": 25,
+    "priority": 4,
+    "allowedStyles": ["caucasus"],
+    "compatibilityWeight": { "chicken": 5, "pork": 4, "beef": 4, "lamb": 3, "turkey": 4 }
+  },
+  {
+    "id": "tkemali",
+    "labels": { "ru": "ткемали", "en": "Tkemali" },
+    "group": "sauces",
+    "calcType": "acid",
+    "baseAmount": 25,
+    "priority": 4,
+    "allowedStyles": ["caucasus"],
+    "compatibilityWeight": { "chicken": 4, "pork": 5, "beef": 5, "lamb": 5, "turkey": 3 }
+  },
+  {
+    "id": "sriracha",
+    "labels": { "ru": "шрирача", "en": "Sriracha" },
+    "group": "sauces",
+    "calcType": "hot",
+    "baseAmount": 12,
+    "priority": 3,
+    "allowedStyles": ["spicy", "eastern"],
+    "compatibilityWeight": { "chicken": 5, "pork": 4, "beef": 3, "lamb": 1, "turkey": 4 }
+  },
+  {
+    "id": "narsharab",
+    "labels": { "ru": "наршараб", "en": "Narsharab" },
+    "group": "sauces",
+    "calcType": "acid",
+    "baseAmount": 20,
+    "priority": 4,
+    "allowedStyles": ["caucasus", "eastern", "premium"],
+    "compatibilityWeight": { "chicken": 3, "pork": 2, "beef": 5, "lamb": 5, "turkey": 3 }
+  },
+  {
+    "id": "bbq_sauce",
+    "labels": { "ru": "соус барбекю", "en": "BBQ sauce" },
+    "group": "sauces",
+    "calcType": "smoky",
+    "baseAmount": 25,
+    "priority": 2,
+    "allowedStyles": ["classic", "spicy", "express"],
+    "compatibilityWeight": { "chicken": 3, "pork": 4, "beef": 3, "lamb": 0, "turkey": 0 }
+  },
+
+  {
+    "id": "red_wine",
+    "labels": { "ru": "красное вино", "en": "Red wine" },
+    "group": "premium",
+    "calcType": "acid",
+    "baseAmount": 50,
+    "priority": 2,
+    "allowedStyles": ["premium", "classic"],
+    "compatibilityWeight": { "chicken": 0, "pork": 3, "beef": 4, "lamb": 4, "turkey": 0 }
+  },
+  {
+    "id": "white_wine",
+    "labels": { "ru": "белое вино", "en": "White wine" },
+    "group": "premium",
+    "calcType": "acid",
+    "baseAmount": 50,
+    "priority": 2,
+    "allowedStyles": ["premium", "herbal", "turkish"],
+    "compatibilityWeight": { "chicken": 4, "pork": 3, "beef": 0, "lamb": 0, "turkey": 4 }
+  },
+  {
+    "id": "cognac",
+    "labels": { "ru": "коньяк", "en": "Cognac" },
+    "group": "premium",
+    "calcType": "acid",
+    "baseAmount": 30,
+    "priority": 2,
+    "allowedStyles": ["premium"],
+    "compatibilityWeight": { "chicken": 2, "pork": 4, "beef": 5, "lamb": 3, "turkey": 2 }
+  },
+  {
+    "id": "brandy",
+    "labels": { "ru": "бренди", "en": "Brandy" },
+    "group": "premium",
+    "calcType": "acid",
+    "baseAmount": 30,
+    "priority": 2,
+    "allowedStyles": ["premium"],
+    "compatibilityWeight": { "chicken": 3, "pork": 4, "beef": 5, "lamb": 3, "turkey": 3 }
+  },
+  {
+    "id": "bourbon",
+    "labels": { "ru": "бурбон", "en": "Bourbon" },
+    "group": "premium",
+    "calcType": "acid",
+    "baseAmount": 30,
+    "priority": 2,
+    "allowedStyles": ["premium", "spicy"],
+    "compatibilityWeight": { "chicken": 3, "pork": 5, "beef": 5, "lamb": 1, "turkey": 2 }
+  },
+  {
+    "id": "smoked_salt",
+    "labels": { "ru": "копчёная соль", "en": "Smoked salt" },
+    "group": "premium",
+    "calcType": "smoky",
+    "baseAmount": 5,
+    "priority": 3,
+    "allowedStyles": ["spicy", "premium", "classic"],
+    "compatibilityWeight": { "chicken": 4, "pork": 5, "beef": 5, "lamb": 3, "turkey": 4 }
+  },
+  {
+    "id": "black_garlic",
+    "labels": { "ru": "чёрный чеснок", "en": "Black garlic" },
+    "group": "premium",
+    "calcType": "umami",
+    "baseAmount": 5,
+    "priority": 2,
+    "allowedStyles": ["premium"],
+    "compatibilityWeight": { "chicken": 3, "pork": 4, "beef": 5, "lamb": 3, "turkey": 3 }
+  },
+  {
+    "id": "juniper",
+    "labels": { "ru": "можжевельник", "en": "Juniper" },
+    "group": "premium",
+    "calcType": "warm",
+    "baseAmount": 2,
+    "priority": 2,
+    "allowedStyles": ["premium", "classic"],
+    "compatibilityWeight": { "chicken": 1, "pork": 4, "beef": 5, "lamb": 4, "turkey": 1 }
+  },
+  {
+    "id": "truffle_oil",
+    "labels": { "ru": "трюфельное масло", "en": "Truffle oil" },
+    "group": "premium",
+    "calcType": "fat",
+    "baseAmount": 5,
+    "priority": 1,
+    "allowedStyles": ["premium"],
+    "compatibilityWeight": { "chicken": 4, "pork": 2, "beef": 5, "lamb": 1, "turkey": 3 }
+  }
+]

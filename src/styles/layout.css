@@ -46,3 +46,8 @@
   );
   pointer-events: none;
 }
+
+/* Suspense / «генерация»: резерв высоты без inline style */
+.lazy-route-placeholder {
+  min-height: 400px;
+}

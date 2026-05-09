@@ -1,0 +1,57 @@
+/**
+ * Жёсткие пары ингредиентов: при коллизии в рецепте остаётся одна
+ * (с большим `priority` из каталога).
+ */
+export const HARD_CONFLICTS: Array<[string, string]> = [
+  // Концептуальные конфликты вкусовых профилей
+  ['curry', 'rosemary'],
+  ['mint', 'smoked_paprika'],
+  ['mint', 'bbq_sauce'],
+  ['dill', 'lamb'],
+  ['sumac', 'chili'],
+  ['yogurt', 'apple_cider_vinegar'],
+  ['red_wine', 'soy_sauce'],
+
+  // Дубли «одно и то же блюдо двумя именами»
+
+  ['lemon_juice', 'lime_juice'],
+  ['mustard', 'dijon_mustard'],
+  ['mustard', 'mustard_seed'],
+  ['dijon_mustard', 'mustard_seed'],
+  ['fish_sauce', 'oyster_sauce'],
+  ['tomato_paste', 'tomato_juice'],
+  ['tomato', 'tomato_juice'],
+  ['tomato_paste', 'tomato'],
+  ['honey', 'maple_syrup'],
+  ['honey', 'brown_sugar'],
+  ['brown_sugar', 'maple_syrup'],
+  ['cognac', 'brandy'],
+  ['cognac', 'bourbon'],
+  ['brandy', 'bourbon'],
+  ['olive_oil', 'mayonnaise'],
+  ['olive_oil', 'sesame_oil'],
+  ['olive_oil', 'mustard_oil'],
+  ['sesame_oil', 'mustard_oil'],
+  ['ayran', 'kefir'],
+  ['ayran', 'yogurt'],
+  ['kefir', 'yogurt'],
+  ['kefir', 'sour_cream'],
+  ['yogurt', 'sour_cream'],
+  ['kefir', 'mayonnaise'],
+  ['yogurt', 'mayonnaise'],
+  ['cilantro', 'dry_parsley'],
+  ['parsley', 'dry_parsley'],
+  ['dill', 'dill_fresh'],
+  ['basil', 'basil_fresh'],
+  ['dry_ginger', 'ginger_fresh'],
+  ['chili', 'chili_fresh'],
+  ['onion', 'red_onion'],
+  ['paprika', 'smoked_paprika'],
+  ['adjika', 'sriracha'],
+  ['adjika', 'tkemali'],
+  ['satsebeli', 'tkemali'],
+  ['narsharab', 'pomegranate_juice'],
+  ['lemon_zest', 'lemon_juice'],
+  ['red_wine', 'white_wine'],
+  ['saffron', 'turmeric'],
+]

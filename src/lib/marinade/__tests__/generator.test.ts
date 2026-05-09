@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 
-import { generateMarinadeRecipe } from '../generator'
+import { HARD_CONFLICTS } from '../conflicts/hard'
+import { generateMarinadeRecipe } from '../generation/generator'
 import { REQUIRED_SPICES_BY_MEAT } from '../rules'
-import { HARD_CONFLICTS } from '../spice-db'
 
 import type { MarinadeInput, MeatType } from '../types'
 
@@ -11,9 +11,6 @@ const baseInput: MarinadeInput = {
   style: 'classic',
   intensity: 'medium',
   fat: 'normal',
-  marinadeTime: 'standard',
-  cutType: 'cube',
-  alcoholPairing: 'none',
   spiceLevel: 5,
 }
 
@@ -49,9 +46,10 @@ describe('generateMarinadeRecipe', () => {
   })
 
   it('includes required spices for each meat (most of the time)', () => {
-    // Required-специи добавляются в `selected` ДО фильтрации конфликтов,
-    // но фильтр может их выкинуть в пользу выше-приоритетной — это редкий
-    // случай, поэтому проверяем "встречается хотя бы раз на 5 сидов".
+    // Required попадают в выбор до filterIngredientConflicts, но фильтр иногда удаляет
+    // пару по приоритету. Проверка «хотя бы один из 5 сидов» — компромисс скорость /
+    // ловля регрессий; при смене правил при необходимости расширить сиды или
+    // проверять приоритеты явно.
     for (const meat of Object.keys(REQUIRED_SPICES_BY_MEAT) as MeatType[]) {
       const required = REQUIRED_SPICES_BY_MEAT[meat]
       for (const spice of required) {
@@ -106,15 +104,10 @@ describe('generateMarinadeRecipe', () => {
     }
   })
 
-  it('returns i18n keys for style/marinade time/notes', () => {
-    const recipe = generateMarinadeRecipe(
-      { ...baseInput, style: 'caucasus', marinadeTime: 'long', cutType: 'steak', alcoholPairing: 'wine' },
-      1,
-    )
+  it('returns i18n keys for style and marination time per meat', () => {
+    const recipe = generateMarinadeRecipe({ ...baseInput, style: 'caucasus', meat: 'lamb' }, 1)
     expect(recipe.meta.styleKey).toBe('recipe.form.options.style.caucasus')
-    expect(recipe.meta.marinadeTimeKey).toBe('recipe.form.options.marinadeTime.long')
-    expect(recipe.meta.cutNoteKey).toBe('recipe.notes.cut.steak')
-    expect(recipe.meta.alcoholNoteKey).toBe('recipe.notes.alcohol.wine')
+    expect(recipe.meta.marinationTimeKey).toBe('recipe.meat.lamb.marinationTime')
   })
 
   it('returns 4 step instructions with i18n keys', () => {
@@ -122,7 +115,26 @@ describe('generateMarinadeRecipe', () => {
     expect(recipe.steps).toHaveLength(4)
     expect(recipe.steps[0].key).toBe('recipe.steps.mixDry')
     expect(recipe.steps[2].key).toBe('recipe.steps.recommendedTime')
-    expect(recipe.steps[2].params).toBeDefined()
-    expect(recipe.steps[2].params?.time).toBeTypeOf('string')
+  })
+
+  it('uses style-specific preparation steps for non-classic styles', () => {
+    const recipe = generateMarinadeRecipe({ ...baseInput, style: 'caucasus' }, 7)
+    expect(recipe.steps[0].key).toBe('recipe.steps.style.caucasus.marinade')
+    expect(recipe.steps[1].key).toBe('recipe.steps.style.caucasus.layer')
+    expect(recipe.steps[2].key).toBe('recipe.steps.recommendedTime')
+  })
+
+  it('includes two grill tip keys from style profile', () => {
+    const recipe = generateMarinadeRecipe(baseInput, 11)
+    expect(recipe.grillTips).toBeDefined()
+    expect(recipe.grillTips).toHaveLength(2)
+    expect(recipe.grillTips?.[0].key).toMatch(/^recipe\.grill\.classic\.tip/)
+  })
+
+  it('is deterministic including grillTips', () => {
+    const a = generateMarinadeRecipe({ ...baseInput, style: 'turkish' }, 999)
+    const b = generateMarinadeRecipe({ ...baseInput, style: 'turkish' }, 999)
+    expect(a.grillTips).toEqual(b.grillTips)
+    expect(a.steps).toEqual(b.steps)
   })
 })

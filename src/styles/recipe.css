@@ -122,6 +122,23 @@
   min-width: 22px;
 }
 
+.recipe-grill-tips {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.recipe-grill-tip {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--ash);
+  line-height: 1.55;
+  padding: 5px 0;
+}
+
 .recipe-actions {
   display: flex;
   flex-direction: column;

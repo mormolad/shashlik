@@ -9,7 +9,7 @@
 - [x] Подключены реальные `<Routes>` в [src/App.tsx](src/App.tsx): `/` (HomePage), `/recipes` (RecipesPage), `/about` (AboutPage), `*` → HomePage.
 - [x] Логика формы и генерации вынесена из `App.tsx` в [src/pages/HomePage.tsx](src/pages/HomePage.tsx). `App.tsx` стал layout-компонентом (BackgroundVideo + nav + Routes + footer).
 - [x] Создана [src/pages/AboutPage.tsx](src/pages/AboutPage.tsx) с описанием проекта (через i18n).
-- [x] Создана [src/pages/RecipesPage.tsx](src/pages/RecipesPage.tsx) — заглушка для истории рецептов из `localStorage` (ключ `shashlik.recipeHistory.v1`).
+- [x] Создана [src/pages/RecipesPage.tsx](src/pages/RecipesPage.tsx) — история рецептов из `localStorage` (ключ `shashlik.recipeHistory.v1`, запись при показе результата и при «ещё вариант» — см. [src/lib/storage/recipeHistory.ts](src/lib/storage/recipeHistory.ts)).
 - [x] Удалён старый враппер `src/pages/Home.tsx`.
 - [x] Добавлена минимальная навигация (NavLink × 3) — стили в [src/styles/nav.css](src/styles/nav.css).
 - [x] Папка `src/components/ui/` удалена в коммите 6.
@@ -18,13 +18,14 @@
 
 ## 2. Доменная логика (`src/lib/marinade`)
 
-- [x] `StyleType.quick` переименован в `'express'` — конфликт с `MarinadeTimePreference.quick` устранён.
+- [x] `StyleType.quick` переименован в `'express'`.
 - [x] `MarinadeInput.nationalStyle` удалён.
-- [x] Магические числа вынесены в [src/lib/marinade/rules.ts](src/lib/marinade/rules.ts): `RANDOM_VARIANCE`, `LEMON_JUICE_BASE_GRAMS`, `LEMON_JUICE_VARIANCE`, `STYLE_SPICE_COUNT`, `HIGH_DOSE_THRESHOLD_GRAMS`, `MIN_SPICE_AMOUNT_GRAMS`, `SPICE_LEVEL_OFFSET`, `SPICE_LEVEL_DIVISOR`.
-- [x] Seed-fallback в `generateMarinadeRecipe` сменён с `Date.now()` на `Math.floor(Math.random() * 0x7fffffff)` — лучше дисперсия при быстрых повторных вызовах.
+- [x] Магические числа вынесены в [src/lib/marinade/rules.ts](src/lib/marinade/rules.ts): `RANDOM_VARIANCE`, `LEMON_JUICE_BASE_GRAMS`, `LEMON_JUICE_VARIANCE`, `HIGH_DOSE_THRESHOLD_GRAMS`, `MIN_SPICE_AMOUNT_GRAMS`, `SPICE_LEVEL_OFFSET`, `SPICE_LEVEL_DIVISOR`.
+- [x] Seed-fallback в `generateMarinadeRecipe` сменён с `Date.now()` на `Math.floor(Math.random() * 0x7fffffff)`.
 - [x] Дублирующее правило «`dill` + `lamb`» убрано из `hasHardConflict` — оно уже описано в `HARD_CONFLICTS`.
 - [x] `MarinadeMeta.userRating` удалён.
-- [ ] Текст шагов рецепта (`steps`) и нот (`cutNote`/`alcoholNote`) пока остаётся захардкоженным RU — будет вынесен в i18n в коммите 9.
+- [x] Зомби-поле `MarinadeInput.marinadeTime` удалено: длительность маринования зависит только от мяса, ключ i18n `recipe.meat.<id>.marinationTime` (см. `MarinadeMeta.marinationTimeKey`).
+- [x] `MEAT_RULES.marinationTime` (захардкоженные RU-строки) перенесены в `recipe.meat.<id>.marinationTime` в обеих локалях.
 
 ## 3. UI/UX слой (`src/sections`, `src/App.tsx`)
 
@@ -78,8 +79,8 @@
 
 - [x] Захардкоженные строки в [src/sections/RecipeResult.tsx](src/sections/RecipeResult.tsx) («ИНГРЕДИЕНТЫ», «ПРИГОТОВЛЕНИЕ», «Острота», «{styleLabel} маринад») заменены на `t(...)`.
 - [x] Подпись в футере [src/App.tsx](src/App.tsx) → `t('footer.signature')`.
-- [x] Генератор больше не возвращает RU-строки. `MarinadeRecipe.steps` стал массивом `{ key, params? }`, `MarinadeMeta` хранит `styleKey`/`marinadeTimeKey`/`cutNoteKey`/`alcoholNoteKey`. Локализация полностью на стороне UI.
-- [x] `SPICE_LABELS_RU` удалён. Ингредиенты возвращают `name` = имя из `SPICE_DB` (`'cumin'`, `'salt'`, ...). UI переводит через `t(`recipe.spice.${name}`)`.
+- [x] Генератор больше не возвращает RU-строки. `MarinadeRecipe.steps` — массив `{ key, params? }`, `MarinadeMeta` хранит `styleKey`/`marinadeTimeKey`/`spiceLevel`. Локализация полностью на стороне UI.
+- [x] `SPICE_LABELS_RU` удалён. Ингредиенты возвращают `name` = id из каталога (`'cumin'`, `'salt'`, ...). UI переводит через `t(\`recipe.spice.${name}\`)`.
 - [x] `STYLE_LABELS` и `MARINADE_TIME_LABELS` удалены из `rules.ts` — данные больше не дублируются в коде и в `translation.json`.
 - [x] [src/locales/ru/translation.json](src/locales/ru/translation.json) и [src/locales/en/translation.json](src/locales/en/translation.json) дополнены: `footer.*`, `recipe.steps.*`, `recipe.notes.cut.*`, `recipe.notes.alcohol.*`, `recipe.spice.*`, `recipe.result.titleSuffix`, `recipe.result.ingredients`, `recipe.result.preparation`, полный список ключей `recipe.form.options.*`. EN-локаль доведена до полноты RU.
 
@@ -92,12 +93,11 @@
 
 ## 11. Качество кода (SOLID/KISS/DRY)
 
-- [x] **SRP**: `generator.ts` разнесён по обязанностям — теперь это оркестратор, остальное вынесено:
-  - [src/lib/marinade/selectSpices.ts](src/lib/marinade/selectSpices.ts) — `selectStyleSpices`, `filterConflicts`.
-  - [src/lib/marinade/calcAmounts.ts](src/lib/marinade/calcAmounts.ts) — `calcSpiceAmount` + хелперы.
-  - [src/lib/marinade/notes.ts](src/lib/marinade/notes.ts) — `getCutNote`, `getAlcoholNote`.
-- [x] **DRY**: `getCutNote` и `getAlcoholNote` обобщены через словари (`CUT_NOTES`, `ALCOHOL_NOTES`) в [notes.ts](src/lib/marinade/notes.ts).
-- [x] **KISS**: `filterConflicts` упрощена — собирает `Set` из имён к удалению одним проходом, без мутаций промежуточного массива.
+- [x] **SRP**: `generation/generator.ts` — оркестратор; остальное вынесено:
+  - [src/lib/marinade/generation/select-ingredients.ts](src/lib/marinade/generation/select-ingredients.ts) — `selectCatalogIngredientIds`, `filterIngredientConflicts`.
+  - [src/lib/marinade/generation/calc-amounts.ts](src/lib/marinade/generation/calc-amounts.ts) — `calcSpiceAmount` + хелперы.
+- [x] **DRY**: единственный источник по ингредиентам — [`data/spices_database.json`](src/lib/marinade/data/spices_database.json) + [`ingredients/catalog.ts`](src/lib/marinade/ingredients/catalog.ts) (`getIngredientById`).
+- [x] **KISS**: `filterIngredientConflicts` собирает `Set` из имён к удалению одним проходом, без мутаций промежуточного массива.
 - [x] [.cursor/rules/design.mdc](.cursor/rules/design.mdc) переписан под актуальную архитектуру (без Tailwind/Radix/`components/ui`, описана структура `styles/`, `sections/`, `lib/marinade/`).
 
 ## 12. Билд и инфраструктура
@@ -115,16 +115,16 @@
 - [x] Подключён `vitest` + [vitest.config.ts](vitest.config.ts), скрипты `test` / `test:watch` в `package.json`.
 - [x] CI прогоняет `npm test` рядом с `lint` / `typecheck` / `build`.
 - [x] Покрыт `math.ts`: `roundToHalf`, `randomBetween`, `weightedPick`, `createSeededRandom` — граничные случаи и детерминизм.
-- [x] Покрыт `generator.ts`:
+- [x] Покрыт `generation/generator.ts`:
   - детерминизм при одном и том же seed,
   - расхождение при разных seed,
   - база (соль/лук) присутствует для каждого мяса,
   - **`black_pepper` отсутствует при `spiceLevel = 0`** (тест поймал реальный баг в финальной сборке — поправлено в этом же коммите),
   - обязательные специи для каждого мяса встречаются хотя бы на один из 5 сидов,
-  - `HARD_CONFLICTS` никогда не выходят вместе (50 сидов × 5 видов мяса),
+  - жёсткие пары из `HARD_CONFLICTS` никогда не выходят вместе (50 сидов × 5 видов мяса),
   - `dill` никогда не появляется при `meat = 'lamb'`,
   - `lemon_juice` появляется только при `fat = 'fatty'`,
-  - все массы > 0, корректный `styleLabel`, ровно 4 шага.
+  - все массы > 0, корректный `styleKey`, `marinationTimeKey` и ровно 4 шага.
 - [ ] Опционально: `@testing-library/react` для smoke-теста `RecipeForm` — пропустим до отдельного запроса.
 
 ---
@@ -133,9 +133,9 @@
 
 ```mermaid
 flowchart LR
-  Domain[lib/marinade] --> Generator[generator.ts]
+  Domain[lib/marinade] --> Generator[generation/generator.ts]
   Domain --> Rules[rules.ts]
-  Domain --> SpiceDB[spice-db.ts]
+  Domain --> Ingredients[ingredients/* + conflicts/*]
   UI[sections] --> Form[RecipeForm.tsx]
   UI --> Result[RecipeResult.tsx]
   UI --> Overlays[FireOverlay/BackgroundVideo]

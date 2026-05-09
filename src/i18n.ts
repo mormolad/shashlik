@@ -1,9 +1,10 @@
-import i18n from 'i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
-import { initReactI18next } from 'react-i18next';
+import i18n from 'i18next'
+import LanguageDetector from 'i18next-browser-languagedetector'
+import { initReactI18next } from 'react-i18next'
 
-import translationEN from './locales/en/translation.json';
-import translationRU from './locales/ru/translation.json';
+import { buildSpiceTranslationBundles } from './lib/marinade/ingredients/catalog'
+import translationEN from './locales/en/translation.json'
+import translationRU from './locales/ru/translation.json'
 
 const resources = {
   en: {
@@ -12,9 +13,9 @@ const resources = {
   ru: {
     translation: translationRU,
   },
-};
+}
 
-i18n
+void i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
@@ -23,6 +24,11 @@ i18n
     interpolation: {
       escapeValue: false,
     },
-  });
+  })
+  .then(() => {
+    const ext = buildSpiceTranslationBundles()
+    i18n.addResourceBundle('ru', 'translation', ext.ru, true, true)
+    i18n.addResourceBundle('en', 'translation', ext.en, true, true)
+  })
 
-export default i18n;
+export default i18n

@@ -40,8 +40,7 @@
         "style": "Style",
         "intensity": "Intensity",
         "fat": "Fat",
-        "spiceLevel": "Spiciness",
-        "v4_params": "Extras"
+        "spiceLevel": "Spiciness"
       },
       "spice": {
         "mild": "Mild",
@@ -93,34 +92,24 @@
           "normal_hint": "Average fat",
           "fatty": "Fatty",
           "fatty_hint": "Fatty cuts"
-        },
-        "marinadeTime": {
-          "label": "Marinade time",
-          "quick": "2-4 hours",
-          "standard": "6-8 hours",
-          "long": "10-12 hours"
-        },
-        "cutType": {
-          "label": "Cut type",
-          "cube": "Cubes",
-          "steak": "Steak",
-          "ribs": "Ribs"
-        },
-        "alcohol": {
-          "label": "With drink",
-          "none": "None",
-          "wine": "Wine",
-          "beer": "Beer",
-          "vodka": "Vodka"
         }
       },
       "generate": "Generate Recipe"
+    },
+    "meat": {
+      "pork": { "marinationTime": "6–8 hours" },
+      "lamb": { "marinationTime": "8–10 hours" },
+      "chicken": { "marinationTime": "2–4 hours" },
+      "beef": { "marinationTime": "10–12 hours" },
+      "turkey": { "marinationTime": "4–6 hours" }
     },
     "result": {
       "title": "Your Recipe",
       "titleSuffix": "{{style}} marinade",
       "ingredients": "INGREDIENTS",
       "preparation": "PREPARATION",
+      "grill": "GRILLING",
+      "spiceLevel": "Spiciness {{level}}/10",
       "copy": "Copy",
       "share": "Share",
       "reset": "Reset",
@@ -130,45 +119,76 @@
       "mixDry": "Mix dry spices in a separate bowl.",
       "combine": "Add onion, salt and pepper, then fold in the rest.",
       "recommendedTime": "Recommended marinating time for this meat: {{time}}.",
-      "dryBeforeGrill": "Before grilling, drain excess marinade and pat the meat dry."
+      "dryBeforeGrill": "Before grilling, drain excess marinade and pat the meat dry.",
+      "style": {
+        "caucasus": {
+          "marinade": "Crush onion with salt until juicy, then fold in dry spices and your chosen acid.",
+          "layer": "Pack the marinade tightly against the meat so it stays in contact."
+        },
+        "turkish": {
+          "marinade": "Whisk yogurt or cultured dairy with sumac and dry spices until smooth.",
+          "layer": "Coat evenly; add fresh herbs at the very end of mixing."
+        },
+        "eastern": {
+          "marinade": "Toast dry spices in a dry pan for 30 seconds, cool, then blend with the wet base.",
+          "layer": "Submerge the meat and press under a lid in the fridge."
+        },
+        "spicy": {
+          "marinade": "Mix hot and smoky spices separately, then combine with the rest of the base.",
+          "layer": "Rub thoroughly into the fibers; break up any pepper clumps."
+        },
+        "premium": {
+          "marinade": "Build in layers: oil and citrus first, then herbs and salt.",
+          "layer": "Pack tightly in a container with the marinade clinging to the meat."
+        },
+        "herbal": {
+          "marinade": "Crush dry herbs lightly; add fresh herbs last to preserve aroma.",
+          "layer": "Keep the marinade cool; avoid overheating delicate greens."
+        },
+        "express": {
+          "marinade": "Quickly mix all dry parts, then immediately fold in liquid and meat.",
+          "layer": "Let stand briefly at room temperature before chilling."
+        }
+      }
     },
-    "notes": {
-      "cut": {
-        "steak": "For steaks keep the marinade gentle, avoid excess acidity.",
-        "ribs": "For ribs you can extend marinating by 1-2 hours.",
-        "cube": "For 4-5 cm cubes ensure even marinade coverage."
+    "grill": {
+      "classic": {
+        "tip1": "Coals should wear a white ash coat; cook on moderate heat and flip less often.",
+        "tip2": "Check doneness by juice in the fibers; avoid extra slashes."
       },
-      "alcohol": {
-        "wine": "With wine: add a pinch of thyme and sumac.",
-        "beer": "With beer: amplify smoky notes with paprika.",
-        "vodka": "With strong spirits: keep salt and heat balanced.",
-        "none": "Universal profile, no alcohol accent."
+      "caucasus": {
+        "tip1": "Moderate embers suit Caucasus-style marinades; avoid aggressive flame-ups.",
+        "tip2": "Rest off the heat 3–5 minutes under foil before serving."
+      },
+      "turkish": {
+        "tip1": "Yogurt marinades brown fast—do not scorch the first flip.",
+        "tip2": "Serve with lemon wedges and fresh herbs."
+      },
+      "eastern": {
+        "tip1": "Watch caramelization from sugar or honey—slightly hotter than medium can burn.",
+        "tip2": "Turmeric and pepper tint the crust; trust aroma as well as time."
+      },
+      "spicy": {
+        "tip1": "Spicy marinades darken quickly—keep a little distance from the coals.",
+        "tip2": "Creamy sauces after grilling tame heat at the table."
+      },
+      "premium": {
+        "tip1": "Citrus-herb premium mixes prefer moderate heat and fewer flips.",
+        "tip2": "Pull slightly early—it carries over while resting."
+      },
+      "herbal": {
+        "tip1": "Herbs scorch fast—use a higher rack or indirect heat.",
+        "tip2": "Keep finishing herbs off the fire until plating."
+      },
+      "express": {
+        "tip1": "With short marination, do not start on maximum heat.",
+        "tip2": "If the surface dries, a light oil wipe on the grate helps."
       }
     },
     "spice": {
       "salt": "Salt",
       "black_pepper": "Black pepper",
-      "onion": "Onion",
-      "cumin": "Cumin",
-      "coriander": "Coriander",
-      "paprika": "Paprika",
-      "smoked_paprika": "Smoked paprika",
-      "garlic": "Garlic",
-      "basil": "Basil",
-      "mint": "Mint",
-      "rosemary": "Rosemary",
-      "dill": "Dill",
-      "chili": "Chili",
-      "sumac": "Sumac",
-      "thyme": "Thyme",
-      "oregano": "Oregano",
-      "turmeric": "Turmeric",
-      "mustard_seed": "Mustard seed",
-      "curry": "Curry",
-      "lemon_zest": "Lemon zest",
-      "lemon_juice": "Lemon juice",
-      "khmeli_suneli": "Khmeli-suneli",
-      "utskho_suneli": "Utskho-suneli"
+      "onion": "Onion"
     }
   }
 }

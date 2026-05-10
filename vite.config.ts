@@ -1,16 +1,12 @@
 import path from "path"
 
 import react from "@vitejs/plugin-react"
-import { inspectAttr } from 'kimi-plugin-inspect-react'
 import { defineConfig } from "vite"
 
 // https://vite.dev/config/
-export default defineConfig(({ mode }) => ({
+export default defineConfig(() => ({
   base: './',
-  plugins: [
-    ...(mode === 'development' ? [inspectAttr()] : []),
-    react(),
-  ],
+  plugins: [react()],
   server: {
     host: "::",
     port: 3000,

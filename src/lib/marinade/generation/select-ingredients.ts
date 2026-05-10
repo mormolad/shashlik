@@ -7,12 +7,16 @@ import { HARD_CONFLICTS } from '../conflicts/hard'
 import { HIGH_DOSE_CONFLICTS } from '../conflicts/high-dose'
 import { getIngredientById, meatAffinityFor, poolForStyleAndMeat } from '../ingredients/catalog'
 import { type RandomGenerator, randomBetween, weightedPick } from '../math'
-import { HIGH_DOSE_THRESHOLD_GRAMS, REQUIRED_SPICES_BY_MEAT } from '../rules'
+import { BASE_INGREDIENT_NAMES, HIGH_DOSE_THRESHOLD_GRAMS, REQUIRED_SPICES_BY_MEAT } from '../rules'
 import { getStyleProfile } from '../styles/profiles'
 
 import type { IngredientDefinition, IngredientRole, MarinadeInput } from '../types'
 
+const BASE_SET = new Set<string>(BASE_INGREDIENT_NAMES)
+
+/** Базовые ингредиенты считаем неприкосновенными — у них «бесконечный» приоритет. */
 function priorityOf(id: string): number {
+  if (BASE_SET.has(id)) return Number.POSITIVE_INFINITY
   return getIngredientById(id)?.priority ?? 0
 }
 
@@ -101,15 +105,20 @@ function tryAnchors(
 }
 
 /**
- * Возвращает id выбранных специй (без salt / black_pepper / onion / lemon_juice).
+ * Возвращает id выбранных специй (без salt / black_pepper / onion).
+ *
+ * База участвует в проверке конфликтов через предзаполненный `selected`,
+ * чтобы каталог не выдавал дубли вроде `red_onion` рядом с `onion`.
  */
 export function selectCatalogIngredientIds(input: MarinadeInput, rng: RandomGenerator): string[] {
   const profile = getStyleProfile(input.style)
   const pool = poolForStyleAndMeat(input.style, input.meat)
-  const selected = new Set<string>()
+  const selected = new Set<string>(BASE_SET)
 
   for (const id of REQUIRED_SPICES_BY_MEAT[input.meat]) {
-    if (getIngredientById(id)) selected.add(id)
+    if (!getIngredientById(id)) continue
+    if (hasHardConflict(selected, id)) continue
+    selected.add(id)
   }
 
   tryAnchors(selected, pool, input, rng)
@@ -123,6 +132,7 @@ export function selectCatalogIngredientIds(input: MarinadeInput, rng: RandomGene
     randomBetween(profile.marinadeTemplate.extraPickRange[0], profile.marinadeTemplate.extraPickRange[1], rng),
   )
   // После required, якорей и закрытия ролей — добираем до +extraTarget позиций.
+  // База в `selected` уже учтена в счёте, поэтому таргет считаем от неё.
   const targetSize = selected.size + extraTarget
   const poolList = [...pool]
 
@@ -141,5 +151,5 @@ export function selectCatalogIngredientIds(input: MarinadeInput, rng: RandomGene
     if (idx >= 0) poolList.splice(idx, 1)
   }
 
-  return [...selected]
+  return [...selected].filter((id) => !BASE_SET.has(id))
 }
